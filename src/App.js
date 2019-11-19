@@ -23,7 +23,11 @@ class App extends Component {
 						</div>
 					</div>
 				</section>
-				<Lists lists={ this.state.lists } />
+				<section className="section">
+					<div className="container">
+						<Lists lists={ this.state.lists } />
+					</div>
+				</section>
 			</div>
 		);
 	}
