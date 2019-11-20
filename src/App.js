@@ -5,6 +5,7 @@ import { sandwich, bolognese } from './gateway/fake-gateway'
 
 import List from './components/List'
 import ListManager from './components/ListManager';
+import Navbar from './components/Navbar';
 
 class App extends Component {
 
@@ -35,15 +36,15 @@ class App extends Component {
 						</div>
 					</div>
 				</section>
+
 				<ListManager
 					updateSelectedList={ this.updateSelectedList }
-					lists={ this.state.lists }
-				/>
-				<div className="container">
-					<List
-						list={ this.getSelectedList() }
-					/>
-				</div>
+					lists={ this.state.lists } />
+
+				<List list={ this.getSelectedList() } />
+
+				<Navbar />
+
 			</div>
 		);
 	}
