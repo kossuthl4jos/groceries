@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import ItemsToBuy from './ItemsToBuy';
+import CompletedItems from './CompletedItems';
 
 
 export class Items extends Component {
 	render() {
-		return this.props.items.map((item) => (
-			<div className="item has-text-left" key={ item.itemId }>
-					{ item.name }
-					<input style={{ float:"right" }} type="checkbox" />
+		return (
+			<div>
+				<ItemsToBuy items={ this.props.items } />
+				<CompletedItems items={ this.props.items } />
 			</div>
-		));
+		)
 	}
 }
 
