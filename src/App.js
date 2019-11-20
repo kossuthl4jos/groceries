@@ -3,12 +3,24 @@ import './App.css';
 
 import { sandwich, bolognese } from './gateway/fake-gateway'
 
-import Lists from './components/Lists'
+import List from './components/List'
+import ListManager from './components/ListManager';
 
 class App extends Component {
 
 	state = {
-		lists: [...sandwich, ...bolognese]
+		lists: [...sandwich, ...bolognese],
+		selectedListId: '1'
+	}
+
+	updateSelectedList = (selectedListId) => {
+		this.setState({
+			selectedListId 
+		})
+	}
+	
+	getSelectedList() {
+		return this.state.lists.find(item => item.id === this.state.selectedListId);
 	}
 
 	render() {
@@ -23,11 +35,15 @@ class App extends Component {
 						</div>
 					</div>
 				</section>
-				<section className="section">
-					<div className="container">
-						<Lists lists={ this.state.lists } />
-					</div>
-				</section>
+				<ListManager
+					updateSelectedList={ this.updateSelectedList }
+					lists={ this.state.lists }
+				/>
+				<div className="container">
+					<List
+						list={ this.getSelectedList() }
+					/>
+				</div>
 			</div>
 		);
 	}
