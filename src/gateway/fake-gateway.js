@@ -1,19 +1,19 @@
 const sandwich = [
 	{
-		id: 1,
+		id: '1',
 		name: 'Sandwich',
 		items: [
 			{
 				itemId: '1s',
 				name: 'Bread',
-				completed: 'yes',
+				completed: true,
 				completedBy: 'Robert',
 				price: 3
 			},
 			{
 				itemId: '2s',
 				name: 'Butter',
-				completed: 'no',
+				completed: false,
 				completedBy: '',
 				price: null
 			}
@@ -23,20 +23,20 @@ const sandwich = [
 
 const bolognese = [
 	{
-		id: 2,
+		id: '2',
 		name: 'Bolognese',
 		items: [
 			{
 				itemId: '1b',
 				name: 'Pasta',
-				completed: 'yes',
+				completed: true,
 				completedBy: 'Louis',
 				price: 4
 			},
 			{
 				itemId: '2b',
 				name: 'Tomato',
-				completed: 'no',
+				completed: false,
 				completedBy: '',
 				price: null
 			}
