@@ -18,9 +18,20 @@ export class ListManager extends Component {
 						};
 					</select>
 				</div>
+
+				<span
+					onClick={() => window.alert('adding new..')}
+					style={ addButton }>
+					<i className="fas fa-plus-circle"></i>
+				</span>
 			</section>
 		)
 	}
+}
+
+const addButton = {
+	display: "inline",
+	float: "right",
 }
 
 export default ListManager
