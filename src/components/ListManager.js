@@ -98,7 +98,6 @@ export class ListManager extends Component {
 				<Collapse in={this.state.addingItem}>
 				<Form>
 						<Form.Control
-							autofocus="true"
 							placeholder="Enter item name"
 							onChange={ this.handleNewItemName }/>
 						<Form.Text className="text-muted">
