@@ -25,7 +25,9 @@ class App extends Component {
 	}
 
 	addItem = (item) => {
-		console.log(item);
+		const lists = this.state.lists.slice();
+		lists.find(list => list.id === this.state.selectedListId).items.push(item);
+		this.setState({ lists });
 	}
 	
 	getSelectedList() {
