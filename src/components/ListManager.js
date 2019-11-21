@@ -6,13 +6,12 @@ import Collapse from 'react-bootstrap/Collapse';
 
 const uuidv4 = require('uuid/v4');
 
-
 export class ListManager extends Component {
 	constructor(props) {
     super(props);
     this.state = {
 			addingList: false,
-			addingNewItem: false,
+			addingItem: false,
 			newListName: '',
 			newItemName: '',
 		};
@@ -41,10 +40,15 @@ export class ListManager extends Component {
 			price: undefined
 		};
 		this.props.addItem(newItem);
+		this.stopAddingItem();
 	}
 
 	stopAddingList = () => {
 		this.setState({ addingList: false });
+	}
+
+	stopAddingItem = () => {
+		this.setState({ addingItem: false });
 	}
 
 	handleNewListName = (e) => {
@@ -57,7 +61,7 @@ export class ListManager extends Component {
 
 	toogleItemForm = () => {
 		this.setState({
-			addingNewItem: !this.state.addingNewItem
+			addingItem: !this.state.addingItem
 		});
 	}
 
@@ -91,11 +95,12 @@ export class ListManager extends Component {
 					onClick={ this.toogleItemForm }>
 					Add new item
 				</div>
-				<Collapse in={this.state.addingNewItem}>
+				<Collapse in={this.state.addingItem}>
 				<Form>
-						<Form.Control 
+						<Form.Control
+							autofocus="true"
 							placeholder="Enter item name"
-							onChange={ this.handleNewListName }/>
+							onChange={ this.handleNewItemName }/>
 						<Form.Text className="text-muted">
 							This item will be added to the selected shopping list.
 						</Form.Text>
