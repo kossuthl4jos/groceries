@@ -23,6 +23,10 @@ class App extends Component {
 		lists.push(list);
 		this.setState({ lists });
 	}
+
+	addItem = (item) => {
+		console.log(item);
+	}
 	
 	getSelectedList() {
 		return this.state.lists.find(item => item.id === this.state.selectedListId);
@@ -43,6 +47,7 @@ class App extends Component {
 
 				<ListManager
 					addList={ this.addList }
+					addItem= { this.addItem }
 					updateSelectedList={ this.updateSelectedList }
 					lists={ this.state.lists } />
 

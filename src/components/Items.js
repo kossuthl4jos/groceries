@@ -7,10 +7,10 @@ import CompletedItems from './CompletedItems';
 export class Items extends Component {
 	render() {
 		return (
-			<div>
+			<section className="section">
 				<ItemsToBuy items={ this.props.items } />
 				<CompletedItems items={ this.props.items } />
-			</div>
+			</section>
 		)
 	}
 }
