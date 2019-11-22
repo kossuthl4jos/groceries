@@ -42,6 +42,7 @@ export class ListManager extends Component {
 		};
 		this.props.addItem(newItem);
 		this.stopAddingItem();
+		this.clearStateForItem();
 	}
 
 	stopAddingList = () => {
@@ -50,6 +51,10 @@ export class ListManager extends Component {
 
 	stopAddingItem = () => {
 		this.setState({ addingItem: false });
+	}
+
+	clearStateForItem = () => {
+		this.setState({ newItemName: '' });
 	}
 
 	handleNewListName = (e) => {
@@ -100,17 +105,18 @@ export class ListManager extends Component {
 					Add new item
 				</div>
 				<Collapse in={this.state.addingItem}>
-				<Form>
-						<Form.Control
-							placeholder="Enter item name"
-							onChange={ this.handleNewItemName }/>
-						<Form.Text className="text-muted">
-							This item will be added to the selected shopping list.
-						</Form.Text>
-					<Button variant="primary" onClick={ this.addItem }>
-						Add
-					</Button>
-				</Form>
+					<Form>
+							<Form.Control
+								placeholder="Enter item name"
+								value={ this.state.newItemName}
+								onChange={ this.handleNewItemName }/>
+							<Form.Text className="text-muted">
+								This item will be added to the selected shopping list.
+							</Form.Text>
+						<Button variant="primary" onClick={ this.addItem }>
+							Add
+						</Button>
+					</Form>
 				</Collapse>
 
 				<Modal show={ this.state.addingList } onHide={ this.stopAddingList }>
