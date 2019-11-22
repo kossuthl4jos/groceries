@@ -41,7 +41,7 @@ class App extends Component {
 					<div className="hero-body">
 						<div className="container">
 							<h1 className="title has-text-left">
-								Groceries
+								Groceries App
 							</h1>
 						</div>
 					</div>
