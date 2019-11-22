@@ -55,11 +55,12 @@
 
 	.nav-button {
 		width: calc(100% / 3);
-		display: inline-block;
+		display: grid;
+		gap: 2px;
 		vertical-align: top; 
 		text-align: center;
-		margin:2%;
-		padding: 20px;
+		margin: 1%;
+		padding: 7px;
 	}
 }
 
