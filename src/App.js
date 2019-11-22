@@ -29,6 +29,19 @@ class App extends Component {
 		lists.find(list => list.id === this.state.selectedListId).items.push(item);
 		this.setState({ lists });
 	}
+
+	completeItem = (completedItem) => {
+		const lists = this.state.lists.slice();
+		Object.assign(
+			lists
+			.find(list => list.id === this.state.selectedListId)
+			.items
+			.find(item => item.itemId === completedItem.itemId)
+			, completedItem
+		);
+
+		this.setState({ lists });
+	}
 	
 	getSelectedList() {
 		return this.state.lists.find(item => item.id === this.state.selectedListId);
@@ -53,7 +66,9 @@ class App extends Component {
 					updateSelectedList={ this.updateSelectedList }
 					lists={ this.state.lists } />
 
-				<List list={ this.getSelectedList() } />
+				<List
+					completeItem = { this.completeItem }
+					list={ this.getSelectedList() }/>
 
 				<Navbar />
 

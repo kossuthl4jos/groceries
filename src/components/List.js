@@ -7,6 +7,7 @@ class List extends Component {
 		return (
 			<div key={ this.props.list.id }>
 				<Items
+					completeItem = { this.props.completeItem }
 					items={ this.props.list.items }
 				/>
 			</div>
