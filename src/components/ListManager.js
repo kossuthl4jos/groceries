@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Collapse from 'react-bootstrap/Collapse';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const uuidv4 = require('uuid/v4');
 
@@ -68,27 +69,30 @@ export class ListManager extends Component {
 	render() {
 		return (
 			<section className="section">
-				<div className="select">
-					<select
-						onChange={ (e) => this.props.updateSelectedList(e.target.value) }>
-						{
-							this.props.lists.map((list) => (
-								<option
-									value={ list.id }
-									key={ list.id }
-								>
-									{ list.name }
-								</option>
-							))
-						};
-					</select>
-				</div>
-
-				<div
-					onClick={ this.startAddingList }
-					style={ addButton }>
-					<i className="fas fa-plus-circle"></i>
-				</div>
+					<Form>
+						<Form.Group controlId="exampleForm.ControlSelect1">
+							<InputGroup>
+								<Form.Control
+									onChange={ (e) => this.props.updateSelectedList(e.target.value) }
+									as="select">
+									{
+										this.props.lists.map((list) => (
+											<option
+												value={ list.id }
+												key={ list.id }
+											>
+												{ list.name }
+											</option>
+										))
+									};
+								</Form.Control>
+								<InputGroup.Append
+									onClick={ this.startAddingList }>
+									<InputGroup.Text id="inputGroupPrepend">+</InputGroup.Text>
+								</InputGroup.Append>
+							</InputGroup>
+						</Form.Group>
+					</Form>
 
 				<div
 					className="new-item-btn"
@@ -127,15 +131,9 @@ export class ListManager extends Component {
 						<Button variant="primary" onClick={ this.addList }>Save changes</Button>
 					</Modal.Footer>
 				</Modal>
-
 			</section>
 		)
 	}
-}
-
-
-const addButton = {
-	display: "inline-block"
 }
 
 export default ListManager
