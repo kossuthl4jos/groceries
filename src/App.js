@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import { sandwich, bolognese } from './gateway/fake-gateway'
 
 import List from './components/List'
 import ListManager from './components/ListManager';
 import Navbar from './components/Navbar';
+import Statistics from './components/Statistics';
 
 class App extends Component {
 
@@ -60,18 +63,27 @@ class App extends Component {
 					</div>
 				</section>
 
-				<ListManager
-					addList={ this.addList }
-					addItem= { this.addItem }
-					updateSelectedList={ this.updateSelectedList }
-					lists={ this.state.lists } />
+				<Router>
+					<Switch>
+						<Route exact path="/">
+							<ListManager
+								addList={ this.addList }
+								addItem= { this.addItem }
+								updateSelectedList={ this.updateSelectedList }
+								lists={ this.state.lists } />
+	
+							<List
+								completeItem = { this.completeItem }
+								list={ this.getSelectedList() }/>
+						</Route>
 
-				<List
-					completeItem = { this.completeItem }
-					list={ this.getSelectedList() }/>
-
-				<Navbar />
-
+						<Route exact path="/stats">
+							<Statistics />
+						</Route>
+					</Switch>
+					
+					<Navbar />
+				</Router>
 			</div>
 		);
 	}
