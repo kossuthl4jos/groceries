@@ -1,3 +1,5 @@
+The aim of the project is create a simple groceries app, which can hold multiple grocery lists, where each list consists of items to be purchased, and items already purchased by someone. The price for the purchase can be also recorded.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
