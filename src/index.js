@@ -1,4 +1,4 @@
-import './style/bulma-theme.scss';
+import './style/style.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import React from 'react';
