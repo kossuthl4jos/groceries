@@ -2,13 +2,20 @@
 
 .item {
 	display: block;
-	background-color: rgb(235, 229, 229);
+	background-color: #DBDBDB;
 	color: rgb(0, 0, 0);
 	display: block;
 	padding: 0.25rem;
 	margin: 0.25rem;
 	border: 1px solid black;
+}
 
+.completed-header {
+	display: block;
+	color: rgb(0, 0, 0);
+	display: block;
+	padding: 0.25rem;
+	margin: 0.25rem;
 }
 
 .new-item-btn {
@@ -37,6 +44,23 @@
 	border: 1px solid;
 	border-radius: 1px;
 	width: 7%;
+}
+
+.navigation-bar {
+	display: flex;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #DBDBDB;
+
+	.nav-button {
+		width: calc(100% / 3);
+		display: inline-block;
+		vertical-align: top; 
+		text-align: center;
+		margin:2%;
+		padding: 20px;
+	}
 }
 	
 
