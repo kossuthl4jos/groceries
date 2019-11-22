@@ -119,7 +119,10 @@ export class ListManager extends Component {
 					</Form>
 				</Collapse>
 
-				<Modal show={ this.state.addingList } onHide={ this.stopAddingList }>
+				<Modal
+					show={ this.state.addingList }
+					onHide={ this.stopAddingList }
+					centered>
 					<Modal.Header closeButton>
 						<Modal.Title>New list</Modal.Title>
 					</Modal.Header>
