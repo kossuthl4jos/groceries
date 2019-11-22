@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
+import Collapse from 'react-bootstrap/Collapse';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,6 +11,7 @@ export class Items extends Component {
 	constructor(props) {
     super(props);
     this.state = {
+			showCompletedItems: true,
 			completingItem: false,
 			selectedItemId: '',
 			completedBy: '',
@@ -50,6 +52,16 @@ export class Items extends Component {
 		this.setState({ completedBy: e.target.value });
 	}
 
+	hasSomeCompleted = () => {
+		return this.props.items.some(item => item.completed);
+	}
+
+	toogleCompletedItems = () => {
+		this.setState({
+			showCompletedItems: !this.state.showCompletedItems
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -68,18 +80,37 @@ export class Items extends Component {
 					))
 				}
 				{
-					this.props.items.map((item) => ( item.completed &&
-						<div key={ item.itemId }>
-							<div className="has-text-left"> completed </div>
-							<div className="item has-text-left" style={{ textDecoration: "line-through"}}>
-									{ item.name }
-									<div className="completed-check-box">
-										<i className="fas fa-check fa-xs"></i>
-									</div>							
-							</div>
+					this.hasSomeCompleted() &&
+					<div className="formGroup">
+						<div
+							className="completed-header input-group has-text-left"
+							onClick={ this.toogleCompletedItems }>
+							completed
+						<span
+							// style={{ marginLeft: "10px"}}
+							className={ this.state.showCompletedItems ? "active arrow" : "arrow" }>
+							<span />
+							<span />
+						</span>
 						</div>
-					))
+					</div>
 				}
+				<Collapse in={this.state.showCompletedItems}>
+					<div>
+						{
+							this.props.items.map((item) => (item.completed &&
+								<div key={ item.itemId }>
+									<div className="item has-text-left" style={{ textDecoration: "line-through"}}>
+											{ item.name }
+											<div className="completed-check-box">
+												<i className="fas fa-check fa-xs"></i>
+											</div>							
+									</div>
+								</div>
+							))
+						}
+					</div>
+				</Collapse>
 
 				<Modal
 					show={ this.state.completingItem }

@@ -62,7 +62,46 @@
 		padding: 20px;
 	}
 }
-	
+
+.arrow {
+// https://codepen.io/simonbreiter/pen/oLJAKy
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+	position: relative;
+  margin: 0 0.5rem;
+
+  span {
+    top: 70%;
+    position: absolute;
+    width: .6rem;
+    height: .09rem;
+    background-color:black;
+    display: inline-block;
+    transition: all .2s ease;
+
+    &:first-of-type {
+      left: 0;
+			transform: rotate(45deg);
+		}
+
+    &:last-of-type {
+      right: 0;
+			transform: rotate(-45deg);
+		}
+	}
+
+  &.active {
+    span {
+      &:first-of-type {
+        transform: rotate(-45deg);
+			}
+      &:last-of-type{
+				transform: rotate(45deg);
+			}
+		}
+	}
+}
 
 @import '~bulma'
 

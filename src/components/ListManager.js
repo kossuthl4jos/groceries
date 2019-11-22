@@ -93,7 +93,7 @@ export class ListManager extends Component {
 								</Form.Control>
 								<InputGroup.Append
 									onClick={ this.startAddingList }>
-									<InputGroup.Text id="inputGroupPrepend">+</InputGroup.Text>
+									<InputGroup.Text>+</InputGroup.Text>
 								</InputGroup.Append>
 							</InputGroup>
 						</Form.Group>
