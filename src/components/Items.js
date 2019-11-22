@@ -87,7 +87,6 @@ export class Items extends Component {
 							onClick={ this.toogleCompletedItems }>
 							completed
 						<span
-							// style={{ marginLeft: "10px"}}
 							className={ this.state.showCompletedItems ? "active arrow" : "arrow" }>
 							<span />
 							<span />
