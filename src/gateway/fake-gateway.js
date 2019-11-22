@@ -6,9 +6,9 @@ const sandwich = [
 			{
 				itemId: '1s',
 				name: 'Bread',
-				completed: true,
-				completedBy: 'Robert',
-				price: 3
+				completed: false,
+				completedBy: '',
+				price: null
 			},
 			{
 				itemId: '2s',
