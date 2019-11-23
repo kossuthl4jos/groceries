@@ -73,7 +73,7 @@ export class ListManager extends Component {
 
 	render() {
 		return (
-			<section className="section">
+			<div className="main-component">
 					<Form>
 						<Form.Group controlId="exampleForm.ControlSelect1">
 							<InputGroup>
@@ -140,7 +140,7 @@ export class ListManager extends Component {
 						<Button variant="primary" onClick={ this.addList }>Save changes</Button>
 					</Modal.Footer>
 				</Modal>
-			</section>
+			</div>
 		)
 	}
 }

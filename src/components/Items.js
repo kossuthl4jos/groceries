@@ -64,7 +64,7 @@ export class Items extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="main-component">
 				{
 					this.props.items.map((item) => ( !item.completed &&
 						<div key={ item.itemId }>
@@ -107,6 +107,7 @@ export class Items extends Component {
 									</div>
 								</div>
 							))
+
 						}
 					</div>
 				</Collapse>
