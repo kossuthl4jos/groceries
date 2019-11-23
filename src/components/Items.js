@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
+import CompletedItems from './CompletedItems'
+
 import Collapse from 'react-bootstrap/Collapse';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -94,21 +97,16 @@ export class Items extends Component {
 						</div>
 					</div>
 				}
-				<Collapse in={this.state.showCompletedItems}>
+			
+				<Collapse in={ this.state.showCompletedItems }>
 					<div>
 						{
 							this.props.items.map((item) => (item.completed &&
-								<div key={ item.itemId }>
-									<div className="item has-text-left" style={{ textDecoration: "line-through"}}>
-											{ item.name }
-											<div className="completed-check-box">
-												<i className="fas fa-check fa-xs"></i>
-											</div>							
-									</div>
-								</div>
+								<CompletedItems
+									key={ item.itemId }
+									item={ item }/>
 							))
-
-						}
+						} 
 					</div>
 				</Collapse>
 
