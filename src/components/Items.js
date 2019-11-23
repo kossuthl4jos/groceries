@@ -65,6 +65,14 @@ export class Items extends Component {
 		});
 	}
 
+	getItemName = () => {
+		return this.getSelectedItem() && this.getSelectedItem().name;
+	}
+
+	getSelectedItem = () => {
+		return this.props.items.find(item => item.itemId === this.state.selectedItemId)
+	}
+
 	render() {
 		return (
 			<div className="main-component">
@@ -115,7 +123,7 @@ export class Items extends Component {
 					onHide={ this.stopCompletingItem }
 					centered>
 					<Modal.Header closeButton>
-						<Modal.Title>New list</Modal.Title>
+						<Modal.Title>{ this.getItemName() }</Modal.Title>
 					</Modal.Header>
 
 					<Modal.Body>
