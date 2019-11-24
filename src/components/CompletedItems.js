@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import ListGroup from 'react-bootstrap/ListGroup';
+
 export class CompletedItems extends Component {
 	constructor(props) {
     super(props);
@@ -25,14 +27,17 @@ export class CompletedItems extends Component {
 				</div>
 
 				{ this.state.showDetails &&
-					<div>
-						<div>
-							Purchased by: { this.props.item.completedBy}
-						</div>
-						<div>
-							For { this.props.item.price } €
-						</div>
-					</div>
+
+					<ListGroup variant="flush">
+						<ListGroup.Item
+							style={{ padding: "0.25rem 1.5rem", fontStyle: "italic" }}>
+							by { this.props.item.completedBy}
+						</ListGroup.Item>
+						<ListGroup.Item
+							style={{ padding: "0.25rem 1.5rem", fontWeight: "bold" }}>
+							{ this.props.item.price } €
+						</ListGroup.Item>
+					</ListGroup>
 				}
 			</div>
 		)
