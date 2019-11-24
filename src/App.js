@@ -78,7 +78,7 @@ class App extends Component {
 						</Route>
 
 						<Route exact path="/stats">
-							<Statistics />
+							<Statistics lists={ this.state.lists }/>
 						</Route>
 					</Switch>
 					
