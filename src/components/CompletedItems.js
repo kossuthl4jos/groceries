@@ -19,7 +19,7 @@ export class CompletedItems extends Component {
 	render() {
 		return (
 			<div onClick={ this.toogleDetails }>
-				<div className="item has-text-left" style={{ textDecoration: "line-through"}}>
+				<div className="item" style={{ textDecoration: "line-through"}}>
 						{ this.props.item.name }
 						<div className="completed-check-box">
 							<i className="fas fa-check fa-xs"></i>

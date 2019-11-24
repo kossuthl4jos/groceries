@@ -79,7 +79,7 @@ export class Items extends Component {
 				{
 					this.props.items.map((item) => ( !item.completed &&
 						<div key={ item.itemId }>
-							<div className="item has-text-left">
+							<div className="item">
 									{ item.name }
 									<div
 										onClick={ () => this.startCompletingItem(item.itemId) }
@@ -94,7 +94,7 @@ export class Items extends Component {
 					this.hasSomeCompleted() &&
 					<div className="formGroup">
 						<div
-							className="completed-header input-group has-text-left"
+							className="completed-header input-group"
 							onClick={ this.toogleCompletedItems }>
 							completed
 						<span
