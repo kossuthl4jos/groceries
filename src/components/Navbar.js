@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
-
 export class Navbar extends Component {
 	render() {
 		return (
@@ -9,14 +8,14 @@ export class Navbar extends Component {
 			<Link
 				className="nav-button"
 				to="/"
-				style={{ textDecoration: 'none' }}>
+				style={{ textDecoration: 'none', color: 'black' }}>
 					<i className="fas fa-list" />
 					List
 			</Link>
 			<Link
 				className="nav-button"
 				to="/stats"
-				style={{ textDecoration: 'none' }}>
+				style={{ textDecoration: 'none', color: 'black' }}>
 					<i className="fas fa-chart-pie" />
 					Stats
 			</Link>
@@ -24,7 +23,7 @@ export class Navbar extends Component {
 			<Link
 				className="nav-button"
 				to="/"
-				style={{ textDecoration: 'none' }}>
+				style={{ textDecoration: 'none', color: 'black' }}>
 					<i className="fas fa-utensils" />
 					Recipes
 			</Link>
