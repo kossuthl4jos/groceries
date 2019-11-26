@@ -75,15 +75,15 @@ export class ListManager extends Component {
 		return (
 			<div className="main-component">
 					<Form>
-						<Form.Group controlId="exampleForm.ControlSelect1">
+						<Form.Group controlId="selectList">
 							<InputGroup>
 								<Form.Control
 									onChange={ (e) => this.props.updateSelectedList(e.target.value) }
+									value= { this.props.selectedListId }
 									as="select">
 									{
 										this.props.lists.map((list) => (
 											<option
-												selected={ this.props.selectedListId === list.id }
 												value={ list.id }
 												key={ list.id }
 											>
