@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import PrivateRoute from './PrivateRoute'
-import { AuthContext } from "./context/auth";
-
 import { sandwich, bolognese } from './gateway/fake-gateway'
+import PrivateRoute from './PrivateRoute'
+import { AuthContext } from './context/auth';
 
 import Login from './components/Login'
 import Signup from './components/Signup'
@@ -31,10 +29,6 @@ class App extends Component {
 
 	setAuthTokens = (data) => {
 		this.setState({ authTokens: data })
-	}
-
-	updateSelectedList = (selectedListId) => {
-		this.setState({ selectedListId })
 	}
 
 	addList = (list) => {
@@ -66,24 +60,24 @@ class App extends Component {
 		return this.state.lists.find(item => item.id === this.state.selectedListId);
 	}
 
+	updateSelectedList = (selectedListId) => {
+		this.setState({ selectedListId })
+	}
+
 	render() {
 		return (
 			<div className="App">
 
-
-				<AuthContext.Provider value={
-					{
+				<AuthContext.Provider value={{
 						authTokens: this.state.authTokens,
 						setAuthTokens: this.setTokens
-					}
-				}>
-					
+					}}>
 					<Router>
 						<Header />
+
 						<Switch>
 							<Route path ="/login" component={ Login }/>
 							<Route path ="/signup" component={ Signup }/>
-
 							<PrivateRoute exact path="/"
 								component={ () =>
 								<div>
@@ -98,7 +92,6 @@ class App extends Component {
 										list={ this.getSelectedList() }/>
 								</div>
 								}	/>
-
 							<PrivateRoute exact path="/stats"
 								component={ () =>
 									<Statistics lists={ this.state.lists }/>
@@ -108,7 +101,6 @@ class App extends Component {
 						<Navbar />
 					</Router>
 				</AuthContext.Provider>
-
 			</div>
 		);
 	}
