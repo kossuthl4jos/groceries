@@ -18,10 +18,6 @@ export class ListManager extends Component {
 		};
   }
 
-	startAddingList = () => {
-		this.setState({ addingList: true })
-	}
-
 	addList = () => {
 		const newList = {
 			id: uuidv4(),
@@ -44,9 +40,19 @@ export class ListManager extends Component {
 		this.stopAddingItem();
 		this.clearStateForItem();
 	}
+	
+	startAddingList = () => {
+		this.setState({ addingList: true })
+	}
 
 	stopAddingList = () => {
 		this.setState({ addingList: false });
+	}
+
+	toogleItemForm = () => {
+		this.setState({
+			addingItem: !this.state.addingItem
+		});
 	}
 
 	stopAddingItem = () => {
@@ -65,12 +71,6 @@ export class ListManager extends Component {
 		this.setState({ newItemName: e.target.value });
 	}
 
-	toogleItemForm = () => {
-		this.setState({
-			addingItem: !this.state.addingItem
-		});
-	}
-
 	render() {
 		return (
 			<div className="main-component">
@@ -83,6 +83,7 @@ export class ListManager extends Component {
 									{
 										this.props.lists.map((list) => (
 											<option
+												selected={ this.props.selectedListId === list.id }
 												value={ list.id }
 												key={ list.id }
 											>

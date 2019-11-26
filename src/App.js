@@ -35,6 +35,7 @@ class App extends Component {
 		const lists = this.state.lists.slice();
 		lists.push(list);
 		this.setState({ lists });
+		this.updateSelectedList(list.id);
 	}
 
 	addItem = (item) => {
@@ -84,6 +85,7 @@ class App extends Component {
 									<ListManager
 										addList={ this.addList }
 										addItem= { this.addItem }
+										selectedListId = { this.state.selectedListId }
 										updateSelectedList={ this.updateSelectedList }
 										lists={ this.state.lists } />
 			
