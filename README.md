@@ -1,5 +1,10 @@
 The aim of the project is create a simple groceries app, which can hold multiple grocery lists, where each list consists of items to be purchased, and items already purchased by someone. The price for the purchase can be also recorded.
 
+To use the app you need to register a user with username and password.
+The password is stored in the local storage, so don't use your favourite one.
+
+Works best with Chrome.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
