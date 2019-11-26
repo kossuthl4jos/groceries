@@ -11,16 +11,13 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 export class Items extends Component {
-	constructor(props) {
-    super(props);
-    this.state = {
-			showCompletedItems: true,
-			completingItem: false,
-			selectedItemId: '',
-			completedBy: '',
-			price: '',
-		};
-	}
+	state = {
+		showCompletedItems: true,
+		completingItem: false,
+		selectedItemId: '',
+		completedBy: '',
+		price: '',
+	};
 	
 	completeItem = () => {
 		const completedItem = {
