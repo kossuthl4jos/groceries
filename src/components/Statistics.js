@@ -27,7 +27,7 @@ export class Statistics extends Component {
 
 	render() {
 		return (
-			<div>
+			<div className="main-component">
 				Total money spent on Groceries: { this.getTotalAmountSpent() }
 			</div>
 		)
