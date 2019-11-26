@@ -3,18 +3,34 @@ import './App.css';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import PrivateRoute from './PrivateRoute'
+import { AuthContext } from "./context/auth";
+
 import { sandwich, bolognese } from './gateway/fake-gateway'
 
+import Login from './components/Login'
+import Signup from './components/Signup'
+
+import Header from './components/Header'
 import List from './components/List'
 import ListManager from './components/ListManager';
 import Navbar from './components/Navbar';
 import Statistics from './components/Statistics';
 
 class App extends Component {
-
 	state = {
+		authTokens: '',
 		lists: [...sandwich, ...bolognese],
 		selectedListId: '1'
+	};
+
+	setTokens = (data) => {
+		localStorage.setItem("tokens", JSON.stringify(data));
+		this.setAuthTokens(data);
+	}
+
+	setAuthTokens = (data) => {
+		this.setState({ authTokens: data })
 	}
 
 	updateSelectedList = (selectedListId) => {
@@ -53,37 +69,46 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<section className="hero is-primary is-small">
-					<div className="hero-body">
-						<div className="container">
-							<h1 className="title has-text-left">
-								Groceries App
-							</h1>
-						</div>
-					</div>
-				</section>
 
-				<Router>
-					<Switch>
-						<Route exact path="/">
-							<ListManager
-								addList={ this.addList }
-								addItem= { this.addItem }
-								updateSelectedList={ this.updateSelectedList }
-								lists={ this.state.lists } />
-	
-							<List
-								completeItem = { this.completeItem }
-								list={ this.getSelectedList() }/>
-						</Route>
 
-						<Route exact path="/stats">
-							<Statistics lists={ this.state.lists }/>
-						</Route>
-					</Switch>
+				<AuthContext.Provider value={
+					{
+						authTokens: this.state.authTokens,
+						setAuthTokens: this.setTokens
+					}
+				}>
 					
-					<Navbar />
-				</Router>
+					<Router>
+						<Header />
+						<Switch>
+							<Route path ="/login" component={ Login }/>
+							<Route path ="/signup" component={ Signup }/>
+
+							<PrivateRoute exact path="/"
+								component={ () =>
+								<div>
+									<ListManager
+										addList={ this.addList }
+										addItem= { this.addItem }
+										updateSelectedList={ this.updateSelectedList }
+										lists={ this.state.lists } />
+			
+									<List
+										completeItem = { this.completeItem }
+										list={ this.getSelectedList() }/>
+								</div>
+								}	/>
+
+							<PrivateRoute exact path="/stats"
+								component={ () =>
+									<Statistics lists={ this.state.lists }/>
+								}	/>
+						</Switch>
+						
+						<Navbar />
+					</Router>
+				</AuthContext.Provider>
+
 			</div>
 		);
 	}

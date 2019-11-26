@@ -7,23 +7,20 @@ export class Navbar extends Component {
 			<div className="navigation-bar">
 			<Link
 				className="nav-button"
-				to="/"
-				style={{ textDecoration: 'none', color: 'black' }}>
+				to="/">
 					<i className="fas fa-list" />
 					List
 			</Link>
 			<Link
 				className="nav-button"
-				to="/stats"
-				style={{ textDecoration: 'none', color: 'black' }}>
+				to="/stats">
 					<i className="fas fa-chart-pie" />
 					Stats
 			</Link>
 
 			<Link
 				className="nav-button"
-				to="/"
-				style={{ textDecoration: 'none', color: 'black' }}>
+				to="/">
 					<i className="fas fa-utensils" />
 					Recipes
 			</Link>
