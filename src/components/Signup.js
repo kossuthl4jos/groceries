@@ -18,7 +18,7 @@ function Signup() {
 
 	function postSignup() {
 		if(password !== passwordAgain) {
-			this.setIsError();
+			setIsError();
 			return;
 		}
 
