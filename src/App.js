@@ -56,6 +56,21 @@ class App extends Component {
 
 		this.setState({ lists });
 	}
+
+	deleteItem = (itemId) => {
+		const lists = this.state.lists.slice();
+		const itemIndexToDelete =
+			lists
+				.find(list => list.id === this.state.selectedListId).items
+				.findIndex(item => item.itemId === itemId)
+
+		lists
+			.find(list => list.id === this.state.selectedListId)
+			.items
+			.splice( itemIndexToDelete, 1);
+
+		this.setState({ lists });
+	}
 	
 	getSelectedList() {
 		return this.state.lists.find(item => item.id === this.state.selectedListId);
@@ -90,6 +105,7 @@ class App extends Component {
 										lists={ this.state.lists } />
 			
 									<List
+										deleteItem = { this.deleteItem }
 										completeItem = { this.completeItem }
 										list={ this.getSelectedList() }/>
 								</div>

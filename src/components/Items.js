@@ -7,6 +7,8 @@ import Collapse from 'react-bootstrap/Collapse';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 
@@ -14,6 +16,7 @@ export class Items extends Component {
 	state = {
 		showCompletedItems: true,
 		completingItem: false,
+		deletingItem: false,
 		selectedItemId: '',
 		completedBy: '',
 		price: '',
@@ -28,6 +31,10 @@ export class Items extends Component {
 		};
 		this.props.completeItem(completedItem);
 		this.stopCompletingItem();
+	}
+
+	deleteItem = () => {
+		this.props.deleteItem(this.state.selectedItemId);
 	}
 
 	startCompletingItem = (itemId) => {
@@ -119,12 +126,15 @@ export class Items extends Component {
 					show={ this.state.completingItem }
 					onHide={ this.stopCompletingItem }
 					centered>
-					<Modal.Header closeButton>
-						<Modal.Title>{ this.getItemName() }</Modal.Title>
+					<Modal.Header>
+						<Modal.Title>
+							{ this.getItemName() }
+						</Modal.Title>
+							<Button variant="danger" onClick={ this.deleteItem }>DELETE</Button>
 					</Modal.Header>
 
 					<Modal.Body>
-						<Form.Group md="4" controlId="validationCustomUsername">
+						<Form.Group md="4" controlId="itemPrice">
 							<InputGroup>
 								<InputGroup.Prepend>
 									<InputGroup.Text id="inputGroupPrepend">€</InputGroup.Text>
@@ -135,9 +145,6 @@ export class Items extends Component {
 									aria-describedby="inputGroupPrepend"
 									onChange={ this.handleItemPrice }
 									required/>
-								<Form.Control.Feedback type="invalid">
-									Please choose a username.
-								</Form.Control.Feedback>
 							</InputGroup>
 						</Form.Group>
 						<Form.Control
@@ -147,8 +154,15 @@ export class Items extends Component {
 					</Modal.Body>
 
 					<Modal.Footer>
-						<Button variant="secondary" onClick={ this.stopCompletingItem }>Close</Button>
-						<Button variant="primary" onClick={ this.completeItem }>Save changes</Button>
+						<ButtonToolbar className="justify-content-between">								
+							<ButtonGroup className="pull-left" aria-label="First group">
+							</ButtonGroup>
+
+							<ButtonGroup aria-label="Second group">
+								<Button variant="secondary" onClick={ this.stopCompletingItem }>Close</Button>
+								<Button variant="primary" onClick={ this.completeItem }>Save </Button>
+							</ButtonGroup>
+						</ButtonToolbar>
 					</Modal.Footer>
 				</Modal>
 			</div>
