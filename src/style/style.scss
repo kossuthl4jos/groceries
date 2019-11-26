@@ -68,12 +68,29 @@
 		text-align: center;
 		margin: 1%;
 		padding: 7px;
+		color: black;
+		text-decoration: none;
 	}
 }
 
+.sign-in {
+	display: grid;
+	color: white
+}
+
+.sign-out {
+	display: grid;
+	color: white
+}
+
+//Overrides
 .list-group {
 	margin-left: 20%;
 	margin-right: 20%;
+}
+
+.title {
+	text-align: left;
 }
 
 .arrow {
@@ -116,5 +133,10 @@
 	}
 }
 
-@import '~bulma'
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+@import '~bulma/sass/utilities/derived-variables';
+@import '~bulma/sass/utilities/mixins';
 
+@import "~bulma/sass/layout/hero";
+@import "~bulma/sass/elements/title";
