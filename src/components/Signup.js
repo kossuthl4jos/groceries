@@ -49,23 +49,27 @@ function Signup() {
 			<Form.Group controlId="formBasicPassword">
 				<Form.Label>Password</Form.Label>
 				<Form.Control
-					type="password"
 					placeholder="Password"
 					onChange={ e => {
 						setPassword(e.target.value);
 					}}
 					value={ password } />
+					<Form.Text className="text-muted">
+						Choose one that you don't mind exposing to the world
+					</Form.Text>
 			</Form.Group>
 
 			<Form.Group controlId="formBasicPasswordAgain">
 				<Form.Label>Password again</Form.Label>
 				<Form.Control
-					type="password"
 					placeholder="Password again"
 					onChange={ e => {
 						setPasswordAgain(e.target.value);
 					}}
 					value={ passwordAgain }/>
+				<Form.Text className="text-muted">
+					Choose one that you don't mind exposing to the world
+				</Form.Text>
 			</Form.Group>
 
 			<Button
