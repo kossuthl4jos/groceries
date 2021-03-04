@@ -8,7 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 
 import { useAuth } from "../context/auth";
 
-function Login() {
+export const Login = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -25,7 +25,7 @@ function Login() {
 			setIsError(true);
 		}
 	}
-	
+
 	if (isLoggedIn) {
     return <Redirect to="/" />;
   }
@@ -67,7 +67,7 @@ function Login() {
 						Don't have an account yet?
 					</Form.Text>
 				</Link>
-				{ 
+				{
 					isError &&
 					<Alert variant="danger">The username or password provided were incorrect!</Alert>
 				}
@@ -75,5 +75,3 @@ function Login() {
 		</div>
 	)
 }
-
-export default Login
