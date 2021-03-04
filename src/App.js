@@ -6,7 +6,7 @@ import { sandwich, bolognese } from './gateway/fake-gateway'
 import PrivateRoute from './PrivateRoute'
 import { AuthContext } from './context/auth';
 
-import Login from './components/Login'
+import {Login} from './components'
 import Signup from './components/Signup'
 
 import Header from './components/Header'
@@ -71,7 +71,7 @@ class App extends Component {
 
 		this.setState({ lists });
 	}
-	
+
 	getSelectedList() {
 		return this.state.lists.find(item => item.id === this.state.selectedListId);
 	}
@@ -103,7 +103,7 @@ class App extends Component {
 										selectedListId = { this.state.selectedListId }
 										updateSelectedList={ this.updateSelectedList }
 										lists={ this.state.lists } />
-			
+
 									<List
 										deleteItem = { this.deleteItem }
 										completeItem = { this.completeItem }
@@ -115,7 +115,7 @@ class App extends Component {
 									<Statistics lists={ this.state.lists }/>
 								}	/>
 						</Switch>
-						
+
 						<Navbar />
 					</Router>
 				</AuthContext.Provider>
