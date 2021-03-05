@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { sandwich, bolognese } from './gateway/fake-gateway'
 import PrivateRoute from './PrivateRoute'
@@ -91,7 +91,7 @@ class App extends Component {
 					<Router>
 						<Header />
 
-						<Switch>
+						<Routes>
 							<Route path ="/login" component={ Login }/>
 							<Route path ="/signup" component={ Signup }/>
 							<PrivateRoute exact path="/"
@@ -114,7 +114,7 @@ class App extends Component {
 								component={ () =>
 									<Statistics lists={ this.state.lists }/>
 								}	/>
-						</Switch>
+						</Routes>
 
 						<Navbar />
 					</Router>

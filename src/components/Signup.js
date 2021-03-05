@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from '../gateway/fake-gateway'
 import { useAuth } from "../context/auth";
 
@@ -9,7 +9,7 @@ import Alert from 'react-bootstrap/Alert';
 
 
 function Signup() {
-	const [isLoggedIn, setLoggedIn] = useState(false);
+	const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -23,16 +23,11 @@ function Signup() {
 		}
 
 		const authTokens = signUp({ userName, password });
-
 		setAuthTokens({ authTokens });
-		setLoggedIn(true);
-		// error handling
+		navigate('/');
+		// TODO error handling
 	}
 
-	if (isLoggedIn) {
-    return <Redirect to="/" />;
-  }
-	
 	return (
 		<Form className="main-component">
 			<Form.Group controlId="formBasicUserName">
