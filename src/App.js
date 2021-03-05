@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { sandwich, bolognese } from './gateway/fake-gateway'
 import PrivateRoute from './PrivateRoute'
-import { AuthContext } from './context/auth';
 
 import {Login} from './components'
 import Signup from './components/Signup'
@@ -17,19 +16,9 @@ import Statistics from './components/Statistics';
 
 class App extends Component {
 	state = {
-		authTokens: '',
 		lists: [...sandwich, ...bolognese],
 		selectedListId: '1'
 	};
-
-	setTokens = (data) => {
-		localStorage.setItem("tokens", JSON.stringify(data));
-		this.setAuthTokens(data);
-	}
-
-	setAuthTokens = (data) => {
-		this.setState({ authTokens: data })
-	}
 
 	addList = (list) => {
 		const lists = this.state.lists.slice();
@@ -83,42 +72,33 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-
-				<AuthContext.Provider value={{
-						authTokens: this.state.authTokens,
-						setAuthTokens: this.setTokens
-					}}>
 					<Router>
-						<Header />
-
 						<Routes>
-							<Route path ="/login" component={ Login }/>
-							<Route path ="/signup" component={ Signup }/>
-							<PrivateRoute exact path="/"
-								component={ () =>
-								<div>
-									<ListManager
-										addList={ this.addList }
-										addItem= { this.addItem }
-										selectedListId = { this.state.selectedListId }
-										updateSelectedList={ this.updateSelectedList }
-										lists={ this.state.lists } />
-
-									<List
-										deleteItem = { this.deleteItem }
-										completeItem = { this.completeItem }
-										list={ this.getSelectedList() }/>
-								</div>
-								}	/>
-							<PrivateRoute exact path="/stats"
-								component={ () =>
+							<Route path ="/login" element={ <Login /> }/>
+							<Route path ="/signup" element={ Signup }/>
+							<PrivateRoute>
+								<Route exact path="/" element={
+									<div>
+										<Header />
+										<ListManager
+											addList={ this.addList }
+											addItem= { this.addItem }
+											selectedListId = { this.state.selectedListId }
+											updateSelectedList={ this.updateSelectedList }
+											lists={ this.state.lists } />
+										<List
+											deleteItem = { this.deleteItem }
+											completeItem = { this.completeItem }
+											list={ this.getSelectedList() }/>
+										<Navbar />
+									</div>
+								}/>
+								<Route exact path="/stats" element={
 									<Statistics lists={ this.state.lists }/>
-								}	/>
+								}/>
+							</PrivateRoute>
 						</Routes>
-
-						<Navbar />
 					</Router>
-				</AuthContext.Provider>
 			</div>
 		);
 	}

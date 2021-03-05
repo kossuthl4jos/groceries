@@ -3,20 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../gateway/fake-gateway';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
-
-import { useAuth } from '../context/auth';
+import { useAuth } from '../context';
 
 export const Login = () => {
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { setAuthTokens } = useAuth();
+  const { setAuthToken } = useAuth();
 
   function postLogin() {
     try {
-      const authTokens = signIn({ userName, password });
-      setAuthTokens({ authTokens });
+      const authToken = signIn({ userName, password });
+      console.log(authToken);
+      setAuthToken();
       navigate('/');
     } catch {
       setIsError(true);

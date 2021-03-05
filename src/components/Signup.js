@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from '../gateway/fake-gateway'
-import { useAuth } from "../context/auth";
 
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
+import { useAuth } from '../context';
 
 
 function Signup() {
@@ -14,7 +14,7 @@ function Signup() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
-	const { setAuthTokens } = useAuth();
+	const { setAuthToken } = useAuth();
 
 	function postSignup() {
 		if(password !== passwordAgain) {
@@ -23,7 +23,7 @@ function Signup() {
 		}
 
 		const authTokens = signUp({ userName, password });
-		setAuthTokens({ authTokens });
+		setAuthToken({ authTokens });
 		navigate('/');
 		// TODO error handling
 	}

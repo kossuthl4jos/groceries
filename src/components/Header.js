@@ -1,22 +1,22 @@
 import React from 'react'
 import { Link  } from 'react-router-dom';
-import { useAuth } from "../context/auth";
 
 import Navbar from 'react-bootstrap/Navbar';
+import { useAuth } from '../context';
 
 export default function Header() {
-	const { setAuthTokens, authTokens } = useAuth();
+	const { setAuthToken, authToken } = useAuth();
 
 	function logOut() {
-    setAuthTokens();
+    setAuthToken();
 	}
-	
+
 	return (
 		<div>
 			<Navbar className="justify-content-between" bg="primary" variant="dark">
 				<Navbar.Brand>Groceries</Navbar.Brand>
 				{
-					authTokens ?
+					authToken ?
 
 					<div
 						className="sign-out"
