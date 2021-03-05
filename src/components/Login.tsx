@@ -15,8 +15,7 @@ export const Login = () => {
   function postLogin() {
     try {
       const authToken = signIn({ userName, password });
-      console.log(authToken);
-      setAuthToken();
+      setAuthToken(authToken);
       navigate('/');
     } catch {
       setIsError(true);
@@ -41,7 +40,7 @@ export const Login = () => {
         <FormGroup controlId="formBasicPassword">
           <FormLabel>Password</FormLabel>
           <FormControl
-            type="password"
+            type="new-password"
             placeholder="Password"
             onChange={(e: FormEvent<HTMLInputElement>) => {
               setPassword((e.target as HTMLInputElement).value);

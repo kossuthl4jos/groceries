@@ -1,13 +1,18 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { AuthContext, useAuth } from './context';
 
 export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const { authToken, setAuthToken } = useAuth();
-  console.log('authTokens: ', authToken);
 
-  if (authToken !== '') {
+  useEffect(() => {
+    if (authToken === null) {
+      navigate('/login', { replace: true });
+    }
+  }, []);
+
+  if (authToken !== null) {
     return (
       <AuthContext.Provider value={{ authToken, setAuthToken }}>
         <Routes>
@@ -16,7 +21,6 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
       </AuthContext.Provider>
     );
   } else {
-    navigate('/login', { replace: true });
     return null;
   }
 };

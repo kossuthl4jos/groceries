@@ -1,14 +1,9 @@
 import { createContext, useContext } from 'react';
+import { getToken, setToken } from '../utils';
 
-export const AuthContext = createContext<{
-  authToken: string;
-  setAuthToken: () => Promise<void>;
-}>({
-  authToken: '',
-  setAuthToken: () =>
-    new Promise((resolve) => {
-      resolve();
-    }),
+export const AuthContext = createContext({
+  authToken: getToken(),
+  setAuthToken: (token: string) => setToken(token),
 });
 
 export function useAuth() {

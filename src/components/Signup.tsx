@@ -21,8 +21,7 @@ export const Signup = () => {
     }
 
     const authToken = signUp({ userName, password });
-    console.log(authToken);
-    setAuthToken();
+    setAuthToken(authToken);
     navigate('/');
     // TODO error handling
   }
