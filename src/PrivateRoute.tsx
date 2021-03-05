@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { AuthContext, useAuth } from './context';
 
-function PrivateRoute({ children, ...rest }: { children: ReactNode }) {
+export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const { authToken, setAuthToken } = useAuth();
   console.log('authTokens: ', authToken);
@@ -16,9 +16,7 @@ function PrivateRoute({ children, ...rest }: { children: ReactNode }) {
       </AuthContext.Provider>
     );
   } else {
-    navigate('/login');
+    navigate('/login', { replace: true });
     return null;
   }
-}
-
-export default PrivateRoute;
+};
