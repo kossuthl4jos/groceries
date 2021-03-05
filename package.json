@@ -6,13 +6,16 @@
     "default_public_path": "/lists"
   },
   "dependencies": {
+    "@types/bootstrap": "^5.0.8",
     "bootstrap": "^4.3.1",
+    "history": "^5.0.0",
     "node-sass": "^4.13.0",
     "prettier": "^2.2.1",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
-    "react-router-dom": "^5.1.2",
+    "react-router": "^6.0.0-alpha.4",
+    "react-router-dom": "^6.0.0-alpha.4",
     "react-scripts": "3.2.0",
     "typescript": "^4.2.2",
     "uuid": "^3.3.3"
