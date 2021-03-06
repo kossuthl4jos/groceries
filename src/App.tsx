@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import { sandwich, bolognese } from './gateway/fake-gateway';
 import { PrivateRoute } from './PrivateRoute';
@@ -65,7 +65,7 @@ export const App = () => {
           <Route path="/signup" element={<Signup />} />
           <PrivateRoute>
             <Route
-              path="/"
+              path="/lists"
               element={
                 <div>
                   <Header />
@@ -86,6 +86,9 @@ export const App = () => {
               }
             />
             <Route path="/stats" element={<Statistics lists={lists} />} />
+            <Route path="/">
+              <Navigate to="/lists" />
+            </Route>
           </PrivateRoute>
         </Routes>
       </Router>

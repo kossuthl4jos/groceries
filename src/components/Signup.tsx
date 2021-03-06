@@ -21,7 +21,7 @@ export const Signup = () => {
 
     const authToken = signUp({ userName, password });
     setAuthToken(authToken);
-    navigate('/');
+    navigate('/lists');
     // TODO error handling
   }
 

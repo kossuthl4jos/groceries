@@ -6,3 +6,4 @@ export * from './Items';
 export * from './CompletedItems';
 export * from './Statistics';
 export * from './ListManager';
+export * from './Redirect';

@@ -12,15 +12,11 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
     }
   }, []);
 
-  if (authToken !== null) {
-    return (
-      <AuthContext.Provider value={{ authToken }}>
-        <Routes>
-          <Route {...rest}>{children}</Route>;
-        </Routes>
-      </AuthContext.Provider>
-    );
-  } else {
-    return null;
-  }
+  return (
+    <AuthContext.Provider value={{ authToken }}>
+      <Routes>
+        <Route {...rest}>{children}</Route>;
+      </Routes>
+    </AuthContext.Provider>
+  );
 };

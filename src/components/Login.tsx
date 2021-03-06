@@ -15,7 +15,7 @@ export const Login = () => {
     const authToken = signIn({ userName, password });
     if (authToken != null) {
       setAuthToken(authToken);
-      navigate('/', { replace: true });
+      navigate('/lists', { replace: true });
     } else {
       setIsError(true);
     }
