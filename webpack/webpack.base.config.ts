@@ -60,16 +60,7 @@ const baseConfig: Configuration = {
       },
       {
         test: /\.scss$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              esModule: false,
-              name: 'scss/[name].[ext]',
-            },
-          },
-          'sass-loader',
-        ],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(jpg|png|svg)$/,
