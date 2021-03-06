@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import { useAuth } from '../context';
 
-export default function Header() {
+export function Header() {
   const { authToken, clearAuthToken } = useAuth();
 
   function logOut() {
