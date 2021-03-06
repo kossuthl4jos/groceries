@@ -114,6 +114,7 @@ export const Items = ({
       <Collapse in={showCompletedItems}>
         <div>{items.map((item: any) => item.completed && <CompletedItems item={item} />)}</div>
       </Collapse>
+
       <Modal show={completingItem} onHide={stopCompletingItem} centered>
         <ModalHeader>
           <ModalTitle>{getItemName()}</ModalTitle>
