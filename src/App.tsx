@@ -5,12 +5,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { sandwich, bolognese } from './gateway/fake-gateway';
 import { PrivateRoute } from './PrivateRoute';
 
-import { Login, Signup } from './components';
+import { Login, Signup, Header, List, Navbar } from './components';
 
-import Header from './components/Header';
-import List from './components/List';
 import ListManager from './components/ListManager';
-import Navbar from './components/Navbar';
 import Statistics from './components/Statistics';
 
 export const App = () => {
