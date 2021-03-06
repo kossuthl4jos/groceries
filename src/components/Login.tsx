@@ -1,23 +1,22 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signIn } from '../gateway/fake-gateway';
+import { setAuthToken } from '../context';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
-import { useAuth } from '../context';
 
 export const Login = () => {
   const navigate = useNavigate();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { setAuthToken } = useAuth();
 
   function postLogin() {
-    try {
-      const authToken = signIn({ userName, password });
+    const authToken = signIn({ userName, password });
+    if (authToken != null) {
       setAuthToken(authToken);
-      navigate('/');
-    } catch {
+      navigate('/', { replace: true });
+    } else {
       setIsError(true);
     }
   }

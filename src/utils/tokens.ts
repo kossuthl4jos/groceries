@@ -8,6 +8,6 @@ export function setToken(token: string): void {
   localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
 }
 
-export function clearToken(token: string): void {
-  localStorage.removeItem(token);
+export function clearToken(): void {
+  localStorage.removeItem(TOKEN_KEY);
 }

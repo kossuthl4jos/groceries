@@ -2,14 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Navbar from 'react-bootstrap/Navbar';
-import { useAuth } from '../context';
+import { clearAuthToken, useAuth } from '../context';
 
 export function Header() {
-  const { authToken, clearAuthToken } = useAuth();
+  const { authToken } = useAuth();
 
   function logOut() {
     if (authToken != null) {
-      clearAuthToken(authToken);
+      clearAuthToken();
     }
   }
 

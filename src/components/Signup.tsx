@@ -4,7 +4,7 @@ import { signUp } from '../gateway/fake-gateway';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
 
-import { useAuth } from '../context';
+import { setAuthToken } from '../context';
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -12,7 +12,6 @@ export const Signup = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('');
-  const { setAuthToken } = useAuth();
 
   function postSignup() {
     if (password !== passwordAgain) {
@@ -63,9 +62,9 @@ export const Signup = () => {
           }}
           value={passwordAgain}
         />
-        <Form.Text className="text-muted">
+        <FormText className="text-muted">
           Choose one that you don't mind exposing to the world
-        </Form.Text>
+        </FormText>
       </FormGroup>
 
       <Button variant="primary" type="submit" onClick={postSignup}>

@@ -1,12 +1,22 @@
-import { createContext, useContext } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { getToken, setToken, clearToken } from '../utils';
 
 export const AuthContext = createContext({
   authToken: getToken(),
-  setAuthToken: (token: string) => setToken(token),
-  clearAuthToken: (token: string) => clearToken(token),
 });
 
+export const setAuthToken = (token: string) => setToken(token);
+export const clearAuthToken = () => clearToken();
+
 export function useAuth() {
-  return useContext(AuthContext);
+  const [authToken, setAuthToken] = useState(getToken());
+
+  useEffect(() => {
+    if (getToken() != null) {
+      console.log('setting otken');
+      setAuthToken(getToken());
+    }
+  }, [getToken()]);
+
+  return { authToken };
 }
