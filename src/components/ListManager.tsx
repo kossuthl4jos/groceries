@@ -1,9 +1,11 @@
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Collapse from 'react-bootstrap/Collapse';
 import InputGroup from 'react-bootstrap/InputGroup';
+import ModalHeader from 'react-bootstrap/esm/ModalHeader';
+import { ModalTitle } from 'react-bootstrap';
 
 const uuidv4 = require('uuid/v4');
 
@@ -68,11 +70,11 @@ export const ListManager = ({
     setAddingItem(!addingItem);
   };
 
-  const handleNewListName = (e: FormEvent<HTMLInputElement>) => {
+  const handleNewListName = (e: ChangeEvent) => {
     setnewListName((e.target as HTMLInputElement).value);
   };
 
-  const handleNewItemName = (e: FormEvent<HTMLInputElement>) => {
+  const handleNewItemName = (e: ChangeEvent) => {
     setNewItemName((e.target as HTMLInputElement).value);
   };
 
@@ -82,7 +84,7 @@ export const ListManager = ({
         <Form.Group controlId="selectList">
           <InputGroup>
             <Form.Control
-              onChange={(e: FormEvent<HTMLInputElement>) =>
+              onChange={(e: ChangeEvent) =>
                 updateSelectedList((e.target as HTMLInputElement).value)
               }
               value={selectedListId}
@@ -121,9 +123,9 @@ export const ListManager = ({
       </Collapse>
 
       <Modal show={addingList} onHide={stopAddingList} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>New list</Modal.Title>
-        </Modal.Header>
+        <ModalHeader closeButton translate>
+          <ModalTitle>New list</ModalTitle>
+        </ModalHeader>
 
         <Modal.Body>
           <Form.Control

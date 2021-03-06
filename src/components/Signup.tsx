@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from '../gateway/fake-gateway';
 
@@ -33,7 +33,7 @@ export const Signup = () => {
         <FormControl
           type="username"
           placeholder="Username"
-          onChange={(e: FormEvent<HTMLInputElement>) => {
+          onChange={(e: ChangeEvent) => {
             setUserName((e.target as HTMLInputElement).value);
           }}
           value={userName}
@@ -44,7 +44,7 @@ export const Signup = () => {
         <FormLabel>Password</FormLabel>
         <FormControl
           placeholder="Password"
-          onChange={(e: FormEvent<HTMLInputElement>) => {
+          onChange={(e: ChangeEvent) => {
             setPassword((e.target as HTMLInputElement).value);
           }}
           value={password}
@@ -58,7 +58,7 @@ export const Signup = () => {
         <FormLabel>Password again</FormLabel>
         <FormControl
           placeholder="Password again"
-          onChange={(e: FormEvent<HTMLInputElement>) => {
+          onChange={(e: ChangeEvent) => {
             setPasswordAgain((e.target as HTMLInputElement).value);
           }}
           value={passwordAgain}

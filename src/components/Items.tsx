@@ -1,12 +1,12 @@
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { CompletedItems } from './CompletedItems';
 
-import Collapse from 'react-bootstrap/Collapse';
 import {
   Button,
   ButtonGroup,
   ButtonToolbar,
+  Collapse,
   FormControl,
   FormGroup,
   InputGroup,
@@ -15,8 +15,8 @@ import {
   ModalFooter,
   ModalTitle,
 } from 'react-bootstrap';
-import ModalHeader from 'react-bootstrap/ModalHeader';
-import { InputGroupPrepend, InputGroupText } from 'react-bootstrap/InputGroup';
+import InputGroupWithExtras from 'react-bootstrap/esm/InputGroup';
+import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 
 export const Items = ({
   items,
@@ -58,11 +58,11 @@ export const Items = ({
     setSelectedItemId(itemId);
   };
 
-  const handleItemPrice = (e: FormEvent<HTMLInputElement>) => {
+  const handleItemPrice = (e: ChangeEvent) => {
     setPrice((e.target as HTMLInputElement).value);
   };
 
-  const handleItemCompletedBy = (e: FormEvent<HTMLInputElement>) => {
+  const handleItemCompletedBy = (e: ChangeEvent) => {
     setCompletedBy((e.target as HTMLInputElement).value);
   };
 
@@ -116,7 +116,7 @@ export const Items = ({
       </Collapse>
 
       <Modal show={completingItem} onHide={stopCompletingItem} centered>
-        <ModalHeader>
+        <ModalHeader translate>
           <ModalTitle>{getItemName()}</ModalTitle>
           <Button variant="danger" onClick={handleOnClickDelete}>
             DELETE
@@ -125,9 +125,7 @@ export const Items = ({
         <ModalBody>
           <FormGroup controlId="itemPrice">
             <InputGroup>
-              <InputGroupPrepend>
-                <InputGroupText id="inputGroupPrepend">€</InputGroupText>
-              </InputGroupPrepend>
+              <InputGroupWithExtras.Text>€</InputGroupWithExtras.Text>
               <FormControl
                 type="text"
                 placeholder="Price"
