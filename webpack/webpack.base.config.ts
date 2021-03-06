@@ -1,7 +1,12 @@
 import path from 'path';
+import dotenv from 'dotenv';
 
 import HtmlPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
+
+dotenv.config();
+
+const IS_DEV = process.env.NODE_ENV === 'development';
 
 const baseConfig: Configuration = {
   mode: 'development',
@@ -31,8 +36,6 @@ const baseConfig: Configuration = {
             options: {
               onlyCompileBundledFiles: true,
               compilerOptions: {
-                noUnusedLocals: true,
-                noUnusedParameters: true,
                 module: 'ESNext',
               },
             },
@@ -51,7 +54,7 @@ const baseConfig: Configuration = {
             loader: 'file-loader',
             options: {
               esModule: false,
-              name: 'css/[name].[ext]',
+              name: IS_DEV ? 'css/[name].[ext]' : 'css/[contenthash].[ext]',
             },
           },
           'extract-loader',
@@ -68,7 +71,7 @@ const baseConfig: Configuration = {
           loader: 'file-loader',
           options: {
             esModule: false,
-            name: 'images/[name][hash].[ext]',
+            name: IS_DEV ? 'images/[name][hash].[ext]' : 'images/[contenthash].[ext]',
           },
         },
       },

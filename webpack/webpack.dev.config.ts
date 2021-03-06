@@ -4,7 +4,7 @@ webpackBaseConfig.devtool = 'cheap-module-source-map';
 
 webpackBaseConfig.devServer = {
   host: '0.0.0.0',
-  port: 3000,
+  port: process.env.WEBPACK_PORT as any,
   historyApiFallback: true,
   clientLogLevel: 'silent',
   stats: 'errors-only',
