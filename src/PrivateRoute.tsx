@@ -4,7 +4,7 @@ import { AuthContext, useAuth } from './context';
 
 export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const { authToken, setAuthToken } = useAuth();
+  const { authToken, setAuthToken, clearAuthToken } = useAuth();
 
   useEffect(() => {
     if (authToken === null) {
@@ -12,9 +12,10 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
     }
   }, []);
 
+  //TODO check the context setters seem unnecesarys
   if (authToken !== null) {
     return (
-      <AuthContext.Provider value={{ authToken, setAuthToken }}>
+      <AuthContext.Provider value={{ authToken, setAuthToken, clearAuthToken }}>
         <Routes>
           <Route {...rest}>{children}</Route>;
         </Routes>
