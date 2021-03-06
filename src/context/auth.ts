@@ -4,7 +4,7 @@ import { getToken, setToken, clearToken } from '../utils';
 export const AuthContext = createContext({
   authToken: getToken(),
   setAuthToken: (token: string) => setToken(token),
-  clearAuthToken: (token: string) => clearToken(),
+  clearAuthToken: (token: string) => clearToken(token),
 });
 
 export function useAuth() {
