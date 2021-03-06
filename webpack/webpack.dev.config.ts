@@ -3,7 +3,7 @@ import webpackBaseConfig from './webpack.base.config';
 webpackBaseConfig.devtool = 'cheap-module-source-map';
 
 webpackBaseConfig.optimization = {
-  noEmitOnErrors: true,
+  emitOnErrors: false,
 };
 
 webpackBaseConfig.devServer = {
