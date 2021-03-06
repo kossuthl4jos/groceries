@@ -12,7 +12,6 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
     }
   }, []);
 
-  //TODO check the context setters seem unnecesarys
   if (authToken !== null) {
     return (
       <AuthContext.Provider value={{ authToken }}>
