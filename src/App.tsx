@@ -5,10 +5,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { sandwich, bolognese } from './gateway/fake-gateway';
 import { PrivateRoute } from './PrivateRoute';
 
-import { Login, Signup, Header, List, Navbar } from './components';
+import { Login, Signup, Header, List, Navbar, Statistics } from './components';
 
 import ListManager from './components/ListManager';
-import Statistics from './components/Statistics';
 
 export const App = () => {
   const [lists, setLists] = useState([...sandwich, ...bolognese]);
