@@ -67,16 +67,3 @@ export const signUp = ({ userName, password }: { userName: string; password: str
 
   return userKey;
 };
-
-export const signIn = ({ userName, password }: { userName: string; password: string }) => {
-  for (var key in localStorage) {
-    if (key.startsWith('groceries-user-key')) {
-      const credentials = JSON.parse(localStorage.getItem(key)!);
-      if (credentials.userName === userName && credentials.password === password) {
-        return credentials.userKey;
-      }
-    }
-  }
-
-  throw new Error('User was not found');
-};
