@@ -1,5 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
+import webpack from 'webpack';
 
 import HtmlPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
@@ -21,7 +22,12 @@ const baseConfig: Configuration = {
     filename: 'js/[name].js',
     publicPath: '/',
   },
-  plugins: [new HtmlPlugin({ filename: 'index.html', template: 'public/index.html' })],
+  plugins: [
+    new HtmlPlugin({ filename: 'index.html', template: 'public/index.html' }),
+    new webpack.ProgressPlugin((percentage, message) => {
+      console.log(`${(percentage * 100).toFixed()}% ${message}`);
+    }),
+  ],
   module: {
     rules: [
       {
