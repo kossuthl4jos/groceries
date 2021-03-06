@@ -13,7 +13,6 @@ export function useAuth() {
 
   useEffect(() => {
     if (getToken() != null) {
-      console.log('setting otken');
       setAuthToken(getToken());
     }
   }, [getToken()]);
