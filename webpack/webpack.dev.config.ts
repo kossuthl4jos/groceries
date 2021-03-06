@@ -2,10 +2,6 @@ import webpackBaseConfig from './webpack.base.config';
 
 webpackBaseConfig.devtool = 'cheap-module-source-map';
 
-webpackBaseConfig.optimization = {
-  emitOnErrors: false,
-};
-
 webpackBaseConfig.devServer = {
   host: '0.0.0.0',
   port: 3000,
