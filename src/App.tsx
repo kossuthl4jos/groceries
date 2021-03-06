@@ -5,9 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { sandwich, bolognese } from './gateway/fake-gateway';
 import { PrivateRoute } from './PrivateRoute';
 
-import { Login, Signup, Header, List, Navbar, Statistics } from './components';
-
-import ListManager from './components/ListManager';
+import { Login, Signup, Header, List, Navbar, Statistics, ListManager } from './components';
 
 export const App = () => {
   const [lists, setLists] = useState([...sandwich, ...bolognese]);
@@ -58,6 +56,7 @@ export const App = () => {
   const updateSelectedList = (selectedListId: string) => {
     setSelectedListId(selectedListId);
   };
+
   return (
     <div className="App">
       <Router>
