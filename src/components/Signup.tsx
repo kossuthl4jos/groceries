@@ -18,8 +18,9 @@ export const Signup = () => {
       return;
     }
 
-    const authToken = signUp({ userName, password });
-    setToken(authToken);
+    const { userKey: authKey, userName: authUserName } = signUp({ userName, password });
+    setToken({ userKey: authKey, userName: authUserName });
+
     navigate('/lists');
     // TODO error handling
   }

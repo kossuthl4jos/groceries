@@ -1,11 +1,17 @@
 const TOKEN_KEY = 'tokens';
 
-export function getToken(): string | null {
-  return localStorage.getItem(TOKEN_KEY);
+export function getToken(): { userKey: string; userName: string } | null {
+  const token = localStorage.getItem(TOKEN_KEY);
+  if (token != null) {
+    const { userKey, userName } = JSON.parse(token);
+    return { userKey, userName };
+  } else {
+    return null;
+  }
 }
 
-export function setToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
+export function setToken({ userKey, userName }: { userKey: string; userName: string }): void {
+  localStorage.setItem(TOKEN_KEY, JSON.stringify({ userKey, userName }));
 }
 
 export function clearToken(): void {

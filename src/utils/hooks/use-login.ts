@@ -17,11 +17,11 @@ export const useLogin = (): {
       if (key.startsWith('groceries-user-key')) {
         const credentials = JSON.parse(localStorage.getItem(key)!);
         if (credentials.userName === values.userName && credentials.password === values.password) {
-          setToken(credentials.userKey);
+          setToken({ userKey: credentials.userKey, userName: credentials.userName });
         }
       }
     }
-    if (getToken() == null) {
+    if (getToken()?.userKey == null) {
       setError(true);
     }
   };

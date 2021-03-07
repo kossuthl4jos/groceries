@@ -5,7 +5,7 @@ import { AuthContext, useAuth } from './context';
 
 export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => {
   const navigate = useNavigate();
-  const { authToken } = useAuth();
+  const { authToken, userName } = useAuth();
 
   useEffect(() => {
     if (authToken == null) {
@@ -14,7 +14,7 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authToken }}>
+    <AuthContext.Provider value={{ authToken, userName }}>
       <Header />
       <Routes>
         <Route {...rest}>{children}</Route>;

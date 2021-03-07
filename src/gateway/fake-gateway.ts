@@ -65,5 +65,5 @@ export const signUp = ({ userName, password }: { userName: string; password: str
   const userKey = createUserKey();
   saveData({ userKey, userName, password });
 
-  return userKey;
+  return { userKey, userName };
 };

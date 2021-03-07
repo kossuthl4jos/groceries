@@ -2,19 +2,22 @@ import { createContext, useEffect, useState } from 'react';
 import { getToken, clearToken } from '../utils';
 
 export const AuthContext = createContext({
-  authToken: getToken(),
+  authToken: getToken()?.userKey,
+  userName: getToken()?.userName,
 });
 
 export const clearAuthToken = () => clearToken();
 
 export function useAuth() {
-  const [authToken, setAuthToken] = useState(getToken());
+  const [authToken, setAuthToken] = useState(getToken()?.userKey);
+  const [userName, setUserName] = useState(getToken()?.userName);
 
   useEffect(() => {
     if (getToken() != null) {
-      setAuthToken(getToken());
+      setAuthToken(getToken()?.userKey);
+      setUserName(getToken()?.userName);
     }
   }, [getToken()]);
 
-  return { authToken };
+  return { authToken, userName };
 }

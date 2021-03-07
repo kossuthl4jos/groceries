@@ -6,7 +6,7 @@ import { clearAuthToken, useAuth } from '../context';
 
 export function Header() {
   const navigate = useNavigate();
-  const { authToken } = useAuth();
+  const { authToken, userName } = useAuth();
 
   function logOut() {
     if (authToken != null) {
@@ -18,7 +18,7 @@ export function Header() {
   return (
     <div>
       <Navbar className="justify-content-between" bg="primary" variant="dark">
-        <NavbarBrand>Groceries</NavbarBrand>
+        <NavbarBrand>Groceries App</NavbarBrand>
         {authToken ? (
           <div className="sign-out" onClick={logOut}>
             <i className="fas fa-sign-out-alt sign-out" />
@@ -31,6 +31,7 @@ export function Header() {
           </Link>
         )}
       </Navbar>
+      {authToken != null ? `Welcome ${userName}` : ''}
     </div>
   );
 }
