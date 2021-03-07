@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from '../gateway/fake-gateway';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
-
-import { setAuthToken } from '../context';
+import { setToken } from '../utils';
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export const Signup = () => {
     }
 
     const authToken = signUp({ userName, password });
-    setAuthToken(authToken);
+    setToken(authToken);
     navigate('/lists');
     // TODO error handling
   }

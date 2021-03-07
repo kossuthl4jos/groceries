@@ -1,26 +1,24 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { setAuthToken } from '../context';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
 import { useLogin } from '../utils';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { login, user, error } = useLogin();
+  const { login, error } = useLogin();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  function postLogin() {
+  const postLogin = () => {
     login({ userName, password });
-    if (user != null) {
-      setAuthToken(user);
-      navigate('/lists', { replace: true });
-    } else if (error) {
+    if (error) {
       setIsError(true);
+    } else {
+      navigate('/lists', { replace: true });
     }
-  }
+  };
 
   return (
     <div>

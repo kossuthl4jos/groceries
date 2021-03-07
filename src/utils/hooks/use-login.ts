@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { getToken, setToken } from '../tokens';
 
 interface LoginData {
   userName: string;
@@ -7,10 +8,8 @@ interface LoginData {
 
 export const useLogin = (): {
   login: (values: LoginData) => void;
-  user?: string;
   error: boolean;
 } => {
-  const [user, setUser] = useState<string>();
   const [error, setError] = useState(false);
 
   const login = (values: LoginData) => {
@@ -18,14 +17,14 @@ export const useLogin = (): {
       if (key.startsWith('groceries-user-key')) {
         const credentials = JSON.parse(localStorage.getItem(key)!);
         if (credentials.userName === values.userName && credentials.password === values.password) {
-          setUser(credentials.userKey);
+          setToken(credentials.userKey);
         }
       }
     }
-    if (user == null) {
+    if (getToken() == null) {
       setError(true);
     }
   };
 
-  return { login, user, error };
+  return { login, error };
 };
