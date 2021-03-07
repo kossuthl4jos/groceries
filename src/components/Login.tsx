@@ -6,14 +6,14 @@ import { useLogin } from '../utils';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { login, error } = useLogin();
+  const { login, error: loginError } = useLogin();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const postLogin = () => {
     login({ userName, password });
-    if (error) {
+    if (loginError) {
       setIsError(true);
     } else {
       navigate('/lists', { replace: true });
