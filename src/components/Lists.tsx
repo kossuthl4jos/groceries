@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { bolognese, sandwich } from '../gateway/fake-gateway';
-import { Header, ListManager, Items } from './';
+import { ListManager, Items } from './';
 
 export const Lists = () => {
   const [lists, setLists] = useState([...sandwich, ...bolognese]);
@@ -54,7 +54,6 @@ export const Lists = () => {
 
   return (
     <Fragment>
-      <Header />
       <ListManager
         addList={addList}
         addItem={addItem}

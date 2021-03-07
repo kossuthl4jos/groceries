@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { bolognese, sandwich } from '../gateway/fake-gateway';
-import { Header } from './Header';
 
 export const Statistics = () => {
   const [lists] = useState([...sandwich, ...bolognese]);
@@ -29,10 +28,7 @@ export const Statistics = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="main-component">Total money spent on Groceries: {getTotalAmountSpent()}</div>
-    </div>
+    <div className="main-component">Total money spent on Groceries: {getTotalAmountSpent()}</div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import Navbar from 'react-bootstrap/Navbar';
+import { NavbarBrand, Navbar } from 'react-bootstrap';
 import { clearAuthToken, useAuth } from '../context';
 
 export function Header() {
@@ -18,7 +18,7 @@ export function Header() {
   return (
     <div>
       <Navbar className="justify-content-between" bg="primary" variant="dark">
-        <Navbar.Brand>Groceries</Navbar.Brand>
+        <NavbarBrand>Groceries</NavbarBrand>
         {authToken ? (
           <div className="sign-out" onClick={logOut}>
             <i className="fas fa-sign-out-alt sign-out" />
