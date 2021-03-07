@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { bolognese, sandwich } from '../gateway/fake-gateway';
 import { Header } from './Header';
 import { Navbar } from './Navbar';
 
-export const Statistics = ({ lists }: { lists: any }) => {
+export const Statistics = () => {
+  const [lists] = useState([...sandwich, ...bolognese]);
+
   const getTotalAmountSpent = () => {
     let totalAmountSpent = 0;
     const items = getItems();
