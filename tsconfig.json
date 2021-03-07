@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "jsx": "preserve",
     "moduleResolution": "node",
     "module": "CommonJS",
@@ -10,14 +11,10 @@
     "target": "es2019",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
-    "paths": {
-      "~/*": ["./src/*"]
-    }
   },
   "include": [
     "src"
