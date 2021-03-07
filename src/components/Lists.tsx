@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { bolognese, sandwich } from '../gateway/fake-gateway';
-import { Header, Navbar, ListManager, Items } from './';
+import { Header, ListManager, Items } from './';
 
 export const Lists = () => {
   const [lists, setLists] = useState([...sandwich, ...bolognese]);
@@ -63,7 +63,6 @@ export const Lists = () => {
         lists={lists}
       />
       <Items deleteItem={deleteItem} completeItem={completeItem} items={getSelectedList()?.items} />
-      <Navbar />
     </Fragment>
   );
 };

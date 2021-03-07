@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { bolognese, sandwich } from '../gateway/fake-gateway';
 import { Header } from './Header';
-import { Navbar } from './Navbar';
 
 export const Statistics = () => {
   const [lists] = useState([...sandwich, ...bolognese]);
@@ -33,7 +32,6 @@ export const Statistics = () => {
     <div>
       <Header />
       <div className="main-component">Total money spent on Groceries: {getTotalAmountSpent()}</div>
-      <Navbar />
     </div>
   );
 };

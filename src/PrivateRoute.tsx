@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Navbar } from './components';
 import { AuthContext, useAuth } from './context';
 
 export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => {
@@ -17,6 +18,7 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
       <Routes>
         <Route {...rest}>{children}</Route>;
       </Routes>
+      <Navbar />
     </AuthContext.Provider>
   );
 };
