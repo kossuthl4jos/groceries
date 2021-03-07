@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "jsx": "preserve",
     "moduleResolution": "node",
     "module": "CommonJS",
@@ -15,6 +14,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "include": [
     "src"
