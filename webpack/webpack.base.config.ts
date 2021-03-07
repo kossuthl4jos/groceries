@@ -9,6 +9,8 @@ dotenv.config();
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
+let progress: string;
+
 const baseConfig: Configuration = {
   mode: 'development',
   resolve: {
@@ -25,7 +27,11 @@ const baseConfig: Configuration = {
   plugins: [
     new HtmlPlugin({ filename: 'index.html', template: 'public/index.html' }),
     new webpack.ProgressPlugin((percentage, message) => {
-      console.log(`${(percentage * 100).toFixed()}% ${message}`);
+      const currentProgress = `${(percentage * 100).toFixed()}% ${message}`;
+      if (progress !== currentProgress) {
+        console.log(currentProgress);
+        progress = currentProgress;
+      }
     }),
   ],
   module: {
