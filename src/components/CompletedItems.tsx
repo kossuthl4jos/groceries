@@ -12,8 +12,6 @@ export const CompletedItems = ({ completedItems }: CompletedItemsProps) => {
     setShowDetails(!showDetails);
   };
 
-  console.log(completedItems);
-  console.log(completedItems.length !== 0);
   return (
     <Fragment>
       {completedItems.length !== 0
