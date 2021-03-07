@@ -51,6 +51,7 @@ export const Items = ({
 
   const handleOnClickDelete = () => {
     deleteItem(selectedItemId);
+    setCompletingItem(false);
   };
 
   const startCompletingItem = (itemId: string) => {
@@ -112,11 +113,11 @@ export const Items = ({
         </div>
       )}
       <Collapse in={showCompletedItems}>
-        <div>{items.map((item: any) => item.completed && <CompletedItems item={item} />)}</div>
+        <CompletedItems completedItems={items.filter((item: any) => item.completed === true)} />
       </Collapse>
 
       <Modal show={completingItem} onHide={stopCompletingItem} centered>
-        <ModalHeader translate>
+        <ModalHeader>
           <ModalTitle>{getItemName()}</ModalTitle>
           <Button variant="danger" onClick={handleOnClickDelete}>
             DELETE

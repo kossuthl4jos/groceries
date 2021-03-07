@@ -123,7 +123,7 @@ export const ListManager = ({
       </Collapse>
 
       <Modal show={addingList} onHide={stopAddingList} centered>
-        <ModalHeader closeButton translate>
+        <ModalHeader closeButton>
           <ModalTitle>New list</ModalTitle>
         </ModalHeader>
 
