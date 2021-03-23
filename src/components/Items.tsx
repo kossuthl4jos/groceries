@@ -27,7 +27,7 @@ export const Items = ({
   deleteItem: (itemId: string) => void;
   completeItem: (item: any) => void;
 }) => {
-  const [showCompletedItems, setShowCompletedItems] = useState(false);
+  const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
   const [completedBy, setCompletedBy] = useState('');
@@ -113,7 +113,9 @@ export const Items = ({
         </div>
       )}
       <Collapse in={showCompletedItems}>
-        <CompletedItems completedItems={items.filter((item: any) => item.completed === true)} />
+        <div>
+          <CompletedItems completedItems={items.filter((item: any) => item.completed === true)} />
+        </div>
       </Collapse>
 
       <Modal show={completingItem} onHide={stopCompletingItem} centered>
