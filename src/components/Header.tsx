@@ -21,8 +21,8 @@ export function Header() {
         <NavbarBrand>Groceries App</NavbarBrand>
         {authToken ? (
           <div className="sign-out" onClick={logOut}>
-            <i className="fas fa-sign-out-alt sign-out" />
-            Sign out
+            <i className="fas fa-power-off" />
+            Log out
           </div>
         ) : (
           <Link className="sign-in" to="/login">
