@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, Fragment, useState } from 'react';
 
 import { CompletedItems } from './CompletedItems';
 
@@ -71,6 +71,10 @@ export const Items = ({
     return items.some((item: any) => item.completed);
   };
 
+  const hasAllCompleted = () => {
+    return items.every((item: any) => item.completed);
+  };
+
   const toogleCompletedItems = () => {
     setShowCompletedItems(!showCompletedItems);
   };
@@ -84,39 +88,53 @@ export const Items = ({
     return getSelectedItem() != null ? selectedItem.name : null;
   };
 
+  const getItemPlaceholder = () => {
+    return (
+      <div className="itemPlaceholder">
+        {items.length === 0 ? "Let's get started, add a new item" : 'Good job, you are all set'}
+      </div>
+    );
+  };
+
   return (
     <div className="main-component">
-      {items.map(
-        (item: any) =>
-          !item.completed && (
-            <div key={item.itemId}>
-              <div className="item">
-                {item.name}
-                <div
-                  onClick={() => startCompletingItem(item.itemId)}
-                  className="to-complete-check-box">
-                  <i className="fas fa-check fa-xs"></i>
+      {hasAllCompleted()
+        ? getItemPlaceholder()
+        : items.map(
+            (item: any) =>
+              !item.completed && (
+                <div key={item.itemId}>
+                  <div className="item">
+                    {item.name}
+                    <div
+                      onClick={() => startCompletingItem(item.itemId)}
+                      className="to-complete-check-box">
+                      <i className="fas fa-check fa-xs"></i>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ),
-      )}
+              ),
+          )}
       {hasSomeCompleted() && (
-        <div className="formGroup">
-          <div className="completed-header input-group" onClick={toogleCompletedItems}>
-            completed
-            <span className={showCompletedItems ? 'active arrow' : 'arrow'}>
-              <span />
-              <span />
-            </span>
+        <Fragment>
+          <div className="formGroup">
+            <div className="completed-header input-group" onClick={toogleCompletedItems}>
+              completed
+              <span className={showCompletedItems ? 'active arrow' : 'arrow'}>
+                <span />
+                <span />
+              </span>
+            </div>
           </div>
-        </div>
+          <Collapse in={showCompletedItems}>
+            <div>
+              <CompletedItems
+                completedItems={items.filter((item: any) => item.completed === true)}
+              />
+            </div>
+          </Collapse>
+        </Fragment>
       )}
-      <Collapse in={showCompletedItems}>
-        <div>
-          <CompletedItems completedItems={items.filter((item: any) => item.completed === true)} />
-        </div>
-      </Collapse>
 
       <Modal show={completingItem} onHide={stopCompletingItem} centered>
         <ModalHeader>

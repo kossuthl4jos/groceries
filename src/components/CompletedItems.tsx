@@ -15,7 +15,7 @@ export const CompletedItems = ({ completedItems }: CompletedItemsProps) => {
 
   return completedItems.length !== 0
     ? completedItems.map((item: any) => (
-        <div key={item} onClick={toogleDetails}>
+        <div key={item.itemId} onClick={toogleDetails}>
           <div className="item" style={{ textDecoration: 'line-through' }}>
             {item.name}
             <div className="completed-check-box">

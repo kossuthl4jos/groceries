@@ -1,8 +1,10 @@
 // Import initial variables and helper functions first
 
 .main-component {
-	padding: 0.5rem;
-	margin: 1rem;
+	margin-top: 1.5rem;
+	margin-right: 1rem;
+	margin-bottom: 0.5rem;
+	margin-left: 1rem;
 }
 
 .item {
@@ -14,6 +16,11 @@
 	margin: 0.25rem;
 	border: 1px solid black;
 	text-align: left;
+}
+
+.itemPlaceholder {
+	margin: 2rem;
+	text-align: center;
 }
 
 .completed-header {
@@ -64,7 +71,7 @@
 		width: calc(100% / 3);
 		display: grid;
 		gap: 2px;
-		vertical-align: top; 
+		vertical-align: top;
 		text-align: center;
 		margin: 1%;
 		padding: 7px;
