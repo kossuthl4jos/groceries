@@ -61,7 +61,7 @@ export const Lists = () => {
         addList={addList}
         addItem={addItem}
         selectedListId={selectedListId}
-        updateSelectedList={() => setSelectedListId(selectedListId)}
+        updateSelectedList={(selectedListId: string) => setSelectedListId(selectedListId)}
       />
       {items != null && items.length > 0 ? (
         <Items deleteItem={deleteItem} completeItem={completeItem} items={items} />
