@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
-import { bolognese, sandwich } from '../gateway/fake-gateway';
+import React from 'react';
+import { Item, List } from '../types';
+import { useFetchLists } from '../utils';
 
 export const Statistics = () => {
-  const [lists] = useState([...sandwich, ...bolognese]);
+  const { lists } = useFetchLists();
 
   const getTotalAmountSpent = () => {
     let totalAmountSpent = 0;
-    const items = getItems();
+    const items = lists?.map((list: List) => list.items) ?? [];
 
     for (let i = 0; i < items.length; i++) {
-      const completedItems = items[i].filter((item: any) => item.completed);
+      const completedItems = items[i].filter((item: Item) => item.completed);
 
       if (completedItems.length > 0) {
         for (let i = 0; i < completedItems.length; i++) {
-          if (!isNaN(completedItems[i].price)) {
-            totalAmountSpent += parseInt(completedItems[i].price);
+          if (!isNaN(completedItems[i].price!)) {
+            totalAmountSpent += completedItems[i].price!;
           }
         }
       }
     }
 
     return totalAmountSpent;
-  };
-
-  const getItems = () => {
-    return lists.map((list: any) => list.items);
   };
 
   return (

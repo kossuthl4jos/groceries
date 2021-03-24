@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { List } from '~/types';
+import { Item, List } from '../types';
 import { useFetchLists, useSaveLists } from '../utils';
 import { ListManager, Items } from './';
 
@@ -8,13 +8,15 @@ export const Lists = () => {
   const { saveLists } = useSaveLists();
   const [selectedListId, setSelectedListId] = useState('1');
 
+  const items = lists?.find((item) => item.id === selectedListId)?.items;
+
   const addList = (list: List) => {
     const newLists: Array<List> = [...(lists ?? []), list];
     saveLists(newLists);
     setSelectedListId(list.id);
   };
 
-  const addItem = (item: any) => {
+  const addItem = (item: Item) => {
     if (selectedListId != null) {
       const newLists: Array<List> = [...(lists ?? [])];
       newLists.find((list) => list.id === selectedListId)!.items.push(item);
@@ -22,7 +24,7 @@ export const Lists = () => {
     }
   };
 
-  const completeItem = (completedItem: any) => {
+  const completeItem = (completedItem: Item) => {
     const newLists: Array<List> = [...(lists ?? [])];
     Object.assign(
       newLists
@@ -46,10 +48,6 @@ export const Lists = () => {
     }
   };
 
-  const getSelectedList = () => {
-    return lists?.find((item) => item.id === selectedListId);
-  };
-
   const updateSelectedList = (selectedListId: string) => {
     setSelectedListId(selectedListId);
   };
@@ -63,7 +61,9 @@ export const Lists = () => {
         selectedListId={selectedListId}
         updateSelectedList={updateSelectedList}
       />
-      <Items deleteItem={deleteItem} completeItem={completeItem} items={getSelectedList()?.items} />
+      {items != null ? (
+        <Items deleteItem={deleteItem} completeItem={completeItem} items={items} />
+      ) : null}
     </Fragment>
   );
 };

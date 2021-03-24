@@ -6,7 +6,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 import { ModalTitle } from 'react-bootstrap';
-import { Item, List } from '~/types';
+import { Item, List } from '../types';
 
 const uuidv4 = require('uuid/v4');
 
@@ -91,7 +91,7 @@ export const ListManager = ({
               value={selectedListId}
               as="select">
               {lists != null ? (
-                lists.map((list: any) => (
+                lists.map((list: List) => (
                   <option value={list.id} key={list.id}>
                     {list.name}
                   </option>

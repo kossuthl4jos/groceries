@@ -17,15 +17,16 @@ import {
 } from 'react-bootstrap';
 import InputGroupWithExtras from 'react-bootstrap/esm/InputGroup';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
+import { Item } from '../types';
 
 export const Items = ({
   items,
   deleteItem,
   completeItem,
 }: {
-  items: any;
+  items: Array<Item>;
   deleteItem: (itemId: string) => void;
-  completeItem: (item: any) => void;
+  completeItem: (item: Item) => void;
 }) => {
   const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
@@ -41,9 +42,10 @@ export const Items = ({
   const handleOnClickSave = () => {
     const completedItem = {
       itemId: selectedItemId,
+      name: getSelectedItem().name,
       completed: true,
       completedBy,
-      price,
+      price: Number(price),
     };
     completeItem(completedItem);
     stopCompletingItem();
@@ -68,24 +70,19 @@ export const Items = ({
   };
 
   const hasSomeCompleted = () => {
-    return items.some((item: any) => item.completed);
+    return items.some((item: Item) => item.completed);
   };
 
   const hasAllCompleted = () => {
-    return items.every((item: any) => item.completed);
+    return items.every((item: Item) => item.completed);
   };
 
   const toogleCompletedItems = () => {
     setShowCompletedItems(!showCompletedItems);
   };
 
-  const getSelectedItem = () => {
-    return items.find((item: any) => item.itemId === selectedItemId);
-  };
-
-  const getItemName = () => {
-    const selectedItem = getSelectedItem();
-    return getSelectedItem() != null ? selectedItem.name : null;
+  const getSelectedItem = (): Item => {
+    return items.find((item: Item) => item.itemId === selectedItemId)!;
   };
 
   const getItemPlaceholder = () => {
@@ -101,7 +98,7 @@ export const Items = ({
       {hasAllCompleted()
         ? getItemPlaceholder()
         : items.map(
-            (item: any) =>
+            (item: Item) =>
               !item.completed && (
                 <div key={item.itemId}>
                   <div className="item">
@@ -129,7 +126,7 @@ export const Items = ({
           <Collapse in={showCompletedItems}>
             <div>
               <CompletedItems
-                completedItems={items.filter((item: any) => item.completed === true)}
+                completedItems={items.filter((item: Item) => item.completed === true)}
               />
             </div>
           </Collapse>
@@ -138,7 +135,7 @@ export const Items = ({
 
       <Modal show={completingItem} onHide={stopCompletingItem} centered>
         <ModalHeader>
-          <ModalTitle>{getItemName()}</ModalTitle>
+          <ModalTitle>{getSelectedItem().name}</ModalTitle>
           <Button variant="danger" onClick={handleOnClickDelete}>
             DELETE
           </Button>
