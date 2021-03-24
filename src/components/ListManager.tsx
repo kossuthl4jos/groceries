@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, Fragment, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -90,7 +90,7 @@ export const ListManager = ({
               }
               value={selectedListId}
               as="select">
-              {lists != null ? (
+              {lists != null && lists.length > 0 ? (
                 lists.map((list: List) => (
                   <option value={list.id} key={list.id}>
                     {list.name}
@@ -108,24 +108,28 @@ export const ListManager = ({
         </Form.Group>
       </Form>
 
-      <div className="new-item-btn" onClick={toogleItemForm}>
-        Add new item
-      </div>
-      <Collapse in={addingItem}>
-        <Form>
-          <Form.Control
-            placeholder="Enter item name"
-            value={newItemName}
-            onChange={handleNewItemName}
-          />
-          <Form.Text className="text-muted">
-            This item will be added to the selected shopping list.
-          </Form.Text>
-          <Button variant="primary" onClick={handleOnClickAdd}>
-            Add
-          </Button>
-        </Form>
-      </Collapse>
+      {lists != null && lists.length > 0 ? (
+        <Fragment>
+          <div className="new-item-btn" onClick={toogleItemForm}>
+            Add new item
+          </div>
+          <Collapse in={addingItem}>
+            <Form>
+              <Form.Control
+                placeholder="Enter item name"
+                value={newItemName}
+                onChange={handleNewItemName}
+              />
+              <Form.Text className="text-muted">
+                This item will be added to the selected shopping list.
+              </Form.Text>
+              <Button variant="primary" onClick={handleOnClickAdd}>
+                Add
+              </Button>
+            </Form>
+          </Collapse>
+        </Fragment>
+      ) : null}
 
       <Modal show={addingList} onHide={stopAddingList} centered>
         <ModalHeader closeButton>

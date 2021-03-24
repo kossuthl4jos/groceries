@@ -1,22 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { List } from '~/types';
 
 const TOKEN_KEY = 'groceries-lists';
 
 export function useFetchLists(): {
-  lists?: Array<List>;
+  lists: Array<List>;
 } {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<Array<List>>([]);
 
-  const groceriesList = localStorage.getItem(TOKEN_KEY);
-  if (groceriesList != null) {
-    const { lists } = JSON.parse(groceriesList);
-    if (lists != null) {
-      setLists(lists);
-    }
-  }
+  useEffect(() => {
+    const groceriesList = localStorage.getItem(TOKEN_KEY);
+    const { lists } = JSON.parse(groceriesList != null ? groceriesList : '{ lists: [] }');
+    setLists(lists);
+  }, []);
 
-  return {
-    lists,
-  };
+  return { lists };
 }
