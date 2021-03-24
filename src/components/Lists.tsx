@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Item, List } from '../types';
 import { useFetchLists, useSaveLists } from '../utils';
 import { ListManager, Items } from './';
@@ -6,7 +6,13 @@ import { ListManager, Items } from './';
 export const Lists = () => {
   const { lists } = useFetchLists();
   const { saveLists } = useSaveLists();
-  const [selectedListId, setSelectedListId] = useState('1');
+  const [selectedListId, setSelectedListId] = useState(lists[0]?.id);
+
+  useEffect(() => {
+    if (lists != null && lists.length > 0) {
+      setSelectedListId(lists[0].id);
+    }
+  }, [lists]);
 
   const items = lists?.find((item) => item.id === selectedListId)?.items;
 
@@ -48,10 +54,6 @@ export const Lists = () => {
     }
   };
 
-  const updateSelectedList = (selectedListId: string) => {
-    setSelectedListId(selectedListId);
-  };
-
   return (
     <Fragment>
       <ListManager
@@ -59,9 +61,9 @@ export const Lists = () => {
         addList={addList}
         addItem={addItem}
         selectedListId={selectedListId}
-        updateSelectedList={updateSelectedList}
+        updateSelectedList={() => setSelectedListId(selectedListId)}
       />
-      {items != null ? (
+      {items != null && items.length > 0 ? (
         <Items deleteItem={deleteItem} completeItem={completeItem} items={items} />
       ) : null}
     </Fragment>

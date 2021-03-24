@@ -1,23 +1,11 @@
-import React, { ChangeEvent, Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { CompletedItems } from './CompletedItems';
 
-import {
-  Button,
-  ButtonGroup,
-  ButtonToolbar,
-  Collapse,
-  FormControl,
-  FormGroup,
-  InputGroup,
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalTitle,
-} from 'react-bootstrap';
-import InputGroupWithExtras from 'react-bootstrap/esm/InputGroup';
-import ModalHeader from 'react-bootstrap/esm/ModalHeader';
+import { Collapse } from 'react-bootstrap';
+
 import { Item } from '../types';
+import { CompleteItemModal } from './CompleteItemModal';
 
 export const Items = ({
   items,
@@ -31,15 +19,13 @@ export const Items = ({
   const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
-  const [completedBy, setCompletedBy] = useState('');
-  const [price, setPrice] = useState('');
 
   const stopCompletingItem = () => {
     setCompletingItem(false);
     setSelectedItemId('');
   };
 
-  const handleOnClickSave = () => {
+  const handleOnClickSave = (completedBy: string, price: string) => {
     const completedItem = {
       itemId: selectedItemId,
       name: getSelectedItem().name,
@@ -59,14 +45,6 @@ export const Items = ({
   const startCompletingItem = (itemId: string) => {
     setCompletingItem(true);
     setSelectedItemId(itemId);
-  };
-
-  const handleItemPrice = (e: ChangeEvent) => {
-    setPrice((e.target as HTMLInputElement).value);
-  };
-
-  const handleItemCompletedBy = (e: ChangeEvent) => {
-    setCompletedBy((e.target as HTMLInputElement).value);
   };
 
   const hasSomeCompleted = () => {
@@ -133,42 +111,13 @@ export const Items = ({
         </Fragment>
       )}
 
-      <Modal show={completingItem} onHide={stopCompletingItem} centered>
-        <ModalHeader>
-          <ModalTitle>{getSelectedItem().name}</ModalTitle>
-          <Button variant="danger" onClick={handleOnClickDelete}>
-            DELETE
-          </Button>
-        </ModalHeader>
-        <ModalBody>
-          <FormGroup controlId="itemPrice">
-            <InputGroup>
-              <InputGroupWithExtras.Text>€</InputGroupWithExtras.Text>
-              <FormControl
-                type="text"
-                placeholder="Price"
-                aria-describedby="inputGroupPrepend"
-                onChange={handleItemPrice}
-                required
-              />
-            </InputGroup>
-          </FormGroup>
-          <FormControl type="text" placeholder="Purchased by" onChange={handleItemCompletedBy} />
-        </ModalBody>
-        <ModalFooter>
-          <ButtonToolbar className="justify-content-between">
-            <ButtonGroup className="pull-left" aria-label="First group"></ButtonGroup>
-            <ButtonGroup aria-label="Second group">
-              <Button variant="secondary" onClick={stopCompletingItem}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleOnClickSave}>
-                Save
-              </Button>
-            </ButtonGroup>
-          </ButtonToolbar>
-        </ModalFooter>
-      </Modal>
+      <CompleteItemModal
+        completingItem={completingItem}
+        stopCompletingItem={stopCompletingItem}
+        item={items.find((item: Item) => item.itemId === selectedItemId)!}
+        handleOnClickSave={handleOnClickSave}
+        handleOnClickDelete={handleOnClickDelete}
+      />
     </div>
   );
 };

@@ -7,3 +7,4 @@ export * from './CompletedItems';
 export * from './Statistics';
 export * from './Lists';
 export * from './ListManager';
+export * from './CompleteItemModal';
