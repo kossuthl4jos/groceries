@@ -1,27 +1,29 @@
 import React, { Fragment, useState } from 'react';
-import { bolognese, sandwich } from '../gateway/fake-gateway';
+import { List } from '~/types';
+import { useFetchLists, useSaveLists } from '../utils';
 import { ListManager, Items } from './';
 
 export const Lists = () => {
-  const [lists, setLists] = useState([...sandwich, ...bolognese]);
+  const { lists } = useFetchLists();
+  const { saveLists } = useSaveLists();
   const [selectedListId, setSelectedListId] = useState('1');
 
-  const addList = (list: any) => {
-    const newLists = [...lists, list];
-    setLists(newLists);
+  const addList = (list: List) => {
+    const newLists: Array<List> = [...(lists ?? []), list];
+    saveLists(newLists);
     setSelectedListId(list.id);
   };
 
   const addItem = (item: any) => {
-    const newLists = [...lists];
     if (selectedListId != null) {
+      const newLists: Array<List> = [...(lists ?? [])];
       newLists.find((list) => list.id === selectedListId)!.items.push(item);
-      setLists(newLists);
+      saveLists(newLists);
     }
   };
 
   const completeItem = (completedItem: any) => {
-    const newLists = [...lists];
+    const newLists: Array<List> = [...(lists ?? [])];
     Object.assign(
       newLists
         .find((list) => list.id === selectedListId)!
@@ -29,23 +31,23 @@ export const Lists = () => {
       completedItem,
     );
 
-    setLists(newLists);
+    saveLists(newLists);
   };
 
   const deleteItem = (itemId: string) => {
-    const newLists = [...lists];
+    const newLists: Array<List> = [...(lists ?? [])];
     const itemIndexToDelete = newLists
       .find((list) => list.id === selectedListId)!
       .items.findIndex((item) => item.itemId === itemId);
 
     if (itemIndexToDelete != null && selectedListId != null) {
       newLists.find((list) => list.id === selectedListId)!.items.splice(itemIndexToDelete, 1);
-      setLists(newLists);
+      saveLists(newLists);
     }
   };
 
   const getSelectedList = () => {
-    return lists.find((item) => item.id === selectedListId);
+    return lists?.find((item) => item.id === selectedListId);
   };
 
   const updateSelectedList = (selectedListId: string) => {
@@ -55,11 +57,11 @@ export const Lists = () => {
   return (
     <Fragment>
       <ListManager
+        lists={lists}
         addList={addList}
         addItem={addItem}
         selectedListId={selectedListId}
         updateSelectedList={updateSelectedList}
-        lists={lists}
       />
       <Items deleteItem={deleteItem} completeItem={completeItem} items={getSelectedList()?.items} />
     </Fragment>

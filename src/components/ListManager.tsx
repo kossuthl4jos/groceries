@@ -6,6 +6,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import InputGroup from 'react-bootstrap/InputGroup';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 import { ModalTitle } from 'react-bootstrap';
+import { Item, List } from '~/types';
 
 const uuidv4 = require('uuid/v4');
 
@@ -16,11 +17,11 @@ export const ListManager = ({
   updateSelectedList,
   lists,
 }: {
-  addList: (list: any) => void;
-  addItem: (item: any) => void;
+  lists?: Array<List>;
+  addList: (list: List) => void;
+  addItem: (item: Item) => void;
   selectedListId: string;
   updateSelectedList: (selectedListId: string) => void;
-  lists: Array<any>;
 }) => {
   const [addingList, setAddingList] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
@@ -89,11 +90,15 @@ export const ListManager = ({
               }
               value={selectedListId}
               as="select">
-              {lists.map((list: any) => (
-                <option value={list.id} key={list.id}>
-                  {list.name}
-                </option>
-              ))}
+              {lists != null ? (
+                lists.map((list: any) => (
+                  <option value={list.id} key={list.id}>
+                    {list.name}
+                  </option>
+                ))
+              ) : (
+                <option>Please create a list first</option>
+              )}
               ;
             </Form.Control>
             <InputGroup.Append onClick={startAddingList}>
