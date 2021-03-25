@@ -65,19 +65,24 @@
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	background-color: #DBDBDB;
 
 	.nav-button {
+		background-color: #DBDBDB;
 		width: calc(100% / 3);
 		display: grid;
 		gap: 2px;
 		vertical-align: top;
 		text-align: center;
-		margin: 1%;
 		padding: 7px;
 		color: black;
 		text-decoration: none;
+
+		&.active {
+			color: white;
+			background-color: #007BFF;
+		}
 	}
+
 }
 
 .sign-in {
@@ -95,11 +100,8 @@
 .list-operations {
 	display: flex;
 	flex-wrap: wrap;
-
-	div {
-		flex: 1;
-		text-align: center;
-	}
+	justify-content: center;
+	margin: 2rem;
 }
 .list-group {
 	margin-left: 20%;
