@@ -18,7 +18,7 @@ export function Header() {
   return (
     <div>
       <Navbar className="justify-content-between" bg="primary" variant="dark">
-        <NavbarBrand>Groceries App</NavbarBrand>
+        <NavbarBrand>Groceries - {authToken != null ? `Hello ${userName}!` : ''}</NavbarBrand>
         {authToken ? (
           <div className="sign-out" onClick={logOut}>
             <i className="fas fa-power-off" />
@@ -31,7 +31,6 @@ export function Header() {
           </Link>
         )}
       </Navbar>
-      {authToken != null ? `Welcome ${userName}` : ''}
     </div>
   );
 }
