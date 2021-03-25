@@ -1,12 +1,10 @@
 import React, { ChangeEvent, Fragment, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Collapse from 'react-bootstrap/Collapse';
 import InputGroup from 'react-bootstrap/InputGroup';
-import ModalHeader from 'react-bootstrap/esm/ModalHeader';
-import { ModalTitle } from 'react-bootstrap';
 import { Item, List } from '../types';
+import { AddListModal } from './';
 
 const uuidv4 = require('uuid/v4');
 
@@ -23,14 +21,9 @@ export const ListManager = ({
   selectedListId?: string;
   updateSelectedList: (selectedListId: string) => void;
 }) => {
-  const [addingList, setAddingList] = useState(false);
+  const [addListModalVisible, setAddListModalVisible] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
-  const [newListName, setnewListName] = useState('');
   const [newItemName, setNewItemName] = useState('');
-
-  const stopAddingList = () => {
-    setAddingList(false);
-  };
 
   const stopAddingItem = () => {
     setAddingItem(false);
@@ -40,14 +33,14 @@ export const ListManager = ({
     setNewItemName('');
   };
 
-  const handleOnClickSave = () => {
+  const handleOnClickSave = (newListName: string) => {
     const newList = {
       id: uuidv4(),
       name: newListName,
       items: [],
     };
     addList(newList);
-    stopAddingList();
+    setAddListModalVisible(false);
   };
 
   const handleOnClickAdd = () => {
@@ -64,15 +57,11 @@ export const ListManager = ({
   };
 
   const startAddingList = () => {
-    setAddingList(true);
+    setAddListModalVisible(true);
   };
 
   const toogleItemForm = () => {
     setAddingItem(!addingItem);
-  };
-
-  const handleNewListName = (e: ChangeEvent) => {
-    setnewListName((e.target as HTMLInputElement).value);
   };
 
   const handleNewItemName = (e: ChangeEvent) => {
@@ -131,29 +120,11 @@ export const ListManager = ({
         </Fragment>
       ) : null}
 
-      <Modal show={addingList} onHide={stopAddingList} centered>
-        <ModalHeader closeButton>
-          <ModalTitle>New list</ModalTitle>
-        </ModalHeader>
-
-        <Modal.Body>
-          <Form.Control
-            size="lg"
-            type="text"
-            placeholder="Enter name"
-            onChange={handleNewListName}
-          />
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={stopAddingList}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleOnClickSave}>
-            Save changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <AddListModal
+        show={addListModalVisible}
+        stopAddingList={() => setAddListModalVisible(false)}
+        handleOnClickSave={handleOnClickSave}
+      />
     </div>
   );
 };
