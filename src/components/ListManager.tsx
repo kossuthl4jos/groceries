@@ -20,7 +20,7 @@ export const ListManager = ({
   lists?: Array<List>;
   addList: (list: List) => void;
   addItem: (item: Item) => void;
-  selectedListId: string;
+  selectedListId?: string;
   updateSelectedList: (selectedListId: string) => void;
 }) => {
   const [addingList, setAddingList] = useState(false);

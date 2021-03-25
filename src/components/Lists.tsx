@@ -6,10 +6,10 @@ import { ListManager, Items } from './';
 export const Lists = () => {
   const { lists } = useFetchLists();
   const { saveLists } = useSaveLists();
-  const [selectedListId, setSelectedListId] = useState(lists[0]?.id);
+  const [selectedListId, setSelectedListId] = useState<string>();
 
   useEffect(() => {
-    if (lists != null && lists.length > 0) {
+    if (lists != null && lists.length > 0 && selectedListId == null) {
       setSelectedListId(lists[0].id);
     }
   }, [lists]);
