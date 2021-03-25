@@ -9,3 +9,4 @@ export * from './Lists';
 export * from './ListManager';
 export * from './CompleteItemModal';
 export * from './AddListModal';
+export * from './DeleteListModal';

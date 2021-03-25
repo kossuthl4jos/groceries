@@ -81,9 +81,7 @@ export const Items = ({
                 <div key={item.itemId}>
                   <div className="item">
                     {item.name}
-                    <div
-                      onClick={() => startCompletingItem(item.itemId)}
-                      className="check-box">
+                    <div onClick={() => startCompletingItem(item.itemId)} className="check-box">
                       <i className="fas fa-check fa-xs"></i>
                     </div>
                   </div>

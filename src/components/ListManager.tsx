@@ -6,6 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Item, List } from '../types';
 import { AddListModal } from './';
 import { ButtonGroup } from 'react-bootstrap';
+import { DeleteListModal } from './DeleteListModal';
 
 const uuidv4 = require('uuid/v4');
 
@@ -25,6 +26,7 @@ export const ListManager = ({
   updateSelectedList: (selectedListId: string) => void;
 }) => {
   const [addListModalVisible, setAddListModalVisible] = useState(false);
+  const [deleteListModalVisible, setDeleteListModalVisible] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
@@ -77,7 +79,7 @@ export const ListManager = ({
           <Button
             disabled={selectedListId == null}
             variant="outline-danger"
-            onClick={selectedListId != null ? () => removeList(selectedListId) : undefined}>
+            onClick={() => setDeleteListModalVisible(true)}>
             <i className="far fa-trash-alt"></i> Delete current list
           </Button>
         </ButtonGroup>
@@ -134,6 +136,13 @@ export const ListManager = ({
         show={addListModalVisible}
         stopAddingList={() => setAddListModalVisible(false)}
         handleOnClickSave={handleOnClickSave}
+      />
+
+      <DeleteListModal
+        list={lists?.find((list) => list.id === selectedListId)}
+        show={deleteListModalVisible}
+        stopDeletingList={() => setDeleteListModalVisible(false)}
+        handleOnClickDelete={(listId: string) => removeList(listId)}
       />
     </div>
   );
