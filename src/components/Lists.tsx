@@ -22,6 +22,14 @@ export const Lists = () => {
     setSelectedListId(list.id);
   };
 
+  const removeList = (listId: string) => {
+    const newLists: Array<List> = [...(lists ?? [])];
+    saveLists(newLists.filter((list) => list.id !== listId));
+    if (lists[0].id != null) {
+      setSelectedListId(lists[0].id);
+    }
+  };
+
   const addItem = (item: Item) => {
     if (selectedListId != null) {
       const newLists: Array<List> = [...(lists ?? [])];
@@ -59,6 +67,7 @@ export const Lists = () => {
       <ListManager
         lists={lists}
         addList={addList}
+        removeList={removeList}
         addItem={addItem}
         selectedListId={selectedListId}
         updateSelectedList={(selectedListId: string) => setSelectedListId(selectedListId)}

@@ -10,6 +10,7 @@ const uuidv4 = require('uuid/v4');
 
 export const ListManager = ({
   addList,
+  removeList,
   addItem,
   selectedListId,
   updateSelectedList,
@@ -17,6 +18,7 @@ export const ListManager = ({
 }: {
   lists?: Array<List>;
   addList: (list: List) => void;
+  removeList: (listId: string) => void;
   addItem: (item: Item) => void;
   selectedListId?: string;
   updateSelectedList: (selectedListId: string) => void;
@@ -56,10 +58,6 @@ export const ListManager = ({
     clearStateForItem();
   };
 
-  const startAddingList = () => {
-    setAddListModalVisible(true);
-  };
-
   const toogleItemForm = () => {
     setAddingItem(!addingItem);
   };
@@ -90,12 +88,16 @@ export const ListManager = ({
               )}
               ;
             </Form.Control>
-            <InputGroup.Append onClick={startAddingList}>
-              <InputGroup.Text>+</InputGroup.Text>
-            </InputGroup.Append>
           </InputGroup>
         </Form.Group>
       </Form>
+
+      <div className="list-operations">
+        <div onClick={() => setAddListModalVisible(true)}>Add new list</div>
+        <div onClick={selectedListId != null ? () => removeList(selectedListId) : undefined}>
+          Delete current list
+        </div>
+      </div>
 
       {lists != null && lists.length > 0 ? (
         <Fragment>
