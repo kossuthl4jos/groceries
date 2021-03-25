@@ -83,7 +83,7 @@ export const Items = ({
                     {item.name}
                     <div
                       onClick={() => startCompletingItem(item.itemId)}
-                      className="to-complete-check-box">
+                      className="check-box">
                       <i className="fas fa-check fa-xs"></i>
                     </div>
                   </div>
