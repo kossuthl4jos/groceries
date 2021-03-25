@@ -5,6 +5,7 @@ import Collapse from 'react-bootstrap/Collapse';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Item, List } from '../types';
 import { AddListModal } from './';
+import { ButtonGroup } from 'react-bootstrap';
 
 const uuidv4 = require('uuid/v4');
 
@@ -68,6 +69,20 @@ export const ListManager = ({
 
   return (
     <div className="main-component">
+      <div className="list-operations">
+        <ButtonGroup size="sm" className="mb-2">
+          <Button>
+            <i className="fas fa-plus" /> Add new list
+          </Button>
+          <Button
+            disabled={selectedListId == null}
+            variant="outline-danger"
+            onClick={selectedListId != null ? () => removeList(selectedListId) : undefined}>
+            <i className="far fa-trash-alt"></i> Delete current list
+          </Button>
+        </ButtonGroup>
+      </div>
+
       <Form>
         <Form.Group controlId="selectList">
           <InputGroup>
@@ -91,13 +106,6 @@ export const ListManager = ({
           </InputGroup>
         </Form.Group>
       </Form>
-
-      <div className="list-operations">
-        <div onClick={() => setAddListModalVisible(true)}>Add new list</div>
-        <div onClick={selectedListId != null ? () => removeList(selectedListId) : undefined}>
-          Delete current list
-        </div>
-      </div>
 
       {lists != null && lists.length > 0 ? (
         <Fragment>
