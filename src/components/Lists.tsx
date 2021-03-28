@@ -23,20 +23,15 @@ export const Lists = () => {
     setSelectedListId(list.id);
   };
 
-  const removeList = (listId: string) => {
-    const newLists: Array<List> = [...(lists ?? [])];
-    saveLists(newLists.filter((list) => list.id !== listId));
+  const deleteList = (listId: string) => {
+    gatewayService.deleteList(listId);
     if (lists[0].id != null) {
       setSelectedListId(lists[0].id);
     }
   };
 
-  const addItem = (item: Item) => {
-    if (selectedListId != null) {
-      const newLists: Array<List> = [...(lists ?? [])];
-      newLists.find((list) => list.id === selectedListId)!.items.push(item);
-      saveLists(newLists);
-    }
+  const updateList = (list: List) => {
+    gatewayService.updateList(list);
   };
 
   const completeItem = (completedItem: Item) => {
@@ -68,10 +63,10 @@ export const Lists = () => {
       <ListManager
         lists={lists}
         addList={addList}
-        removeList={removeList}
-        addItem={addItem}
+        deleteList={deleteList}
+        updateList={updateList}
         selectedListId={selectedListId}
-        updateSelectedList={(selectedListId: string) => setSelectedListId(selectedListId)}
+        updateSelectedListId={(selectedListId: string) => setSelectedListId(selectedListId)}
       />
       {items != null && items.length > 0 ? (
         <Items deleteItem={deleteItem} completeItem={completeItem} items={items} />
