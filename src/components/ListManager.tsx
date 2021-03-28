@@ -73,7 +73,7 @@ export const ListManager = ({
     <div className="main-component">
       <div className="list-operations">
         <ButtonGroup size="sm" className="mb-2">
-          <Button>
+          <Button onClick={() => setAddListModalVisible(true)}>
             <i className="fas fa-plus" /> Add new list
           </Button>
           <Button
