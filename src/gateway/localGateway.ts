@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { List } from '~/types';
 import { IGateway } from './gateway';
 
@@ -12,14 +11,8 @@ function saveLists(lists: Array<List>) {
 
 export class LocalGateWay implements IGateway {
   getLists = () => {
-    const [lists, setLists] = useState<Array<List>>([]);
-
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ lists: [] }';
-
-    useEffect(() => {
-      const { lists } = JSON.parse(groceriesList != null ? groceriesList : '{ lists: [] }');
-      setLists(lists);
-    }, [groceriesList]);
+    const { lists } = JSON.parse(groceriesList != null ? groceriesList : '{ lists: [] }');
 
     return lists;
   };
@@ -47,7 +40,6 @@ export class LocalGateWay implements IGateway {
     const { lists } = JSON.parse(groceriesList);
 
     const newLists: Array<List> = [...(lists.filter((l: List) => l.id !== list.id) ?? []), list];
-
     saveLists(newLists);
   };
 }

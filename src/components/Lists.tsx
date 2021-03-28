@@ -5,7 +5,7 @@ import { Gateway } from '../gateway/';
 
 export const Lists = () => {
   const { gatewayService } = new Gateway();
-  const lists = gatewayService.getLists();
+  const [lists, setLists] = useState(gatewayService.getLists());
   const [selectedListId, setSelectedListId] = useState<string>();
 
   useEffect(() => {
@@ -14,15 +14,24 @@ export const Lists = () => {
     }
   }, [lists]);
 
+  useEffect(() => {
+    const newLists = gatewayService.getLists();
+    if (newLists != null && newLists.length > 0 && selectedListId == null) {
+      setLists(newLists);
+    }
+  }, [gatewayService.getLists()]);
+
   const items = lists?.find((item) => item.id === selectedListId)?.items;
 
   const addList = (list: List) => {
     gatewayService.addList(list);
+    setLists(gatewayService.getLists());
     setSelectedListId(list.id);
   };
 
   const deleteList = (listId: string) => {
     gatewayService.deleteList(listId);
+    setLists(gatewayService.getLists());
     if (lists[0].id != null) {
       setSelectedListId(lists[0].id);
     }
@@ -30,6 +39,7 @@ export const Lists = () => {
 
   const updateList = (list: List) => {
     gatewayService.updateList(list);
+    setLists(gatewayService.getLists());
   };
 
   return (

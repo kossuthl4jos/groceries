@@ -38,7 +38,10 @@ export const Items = ({
       updateList({
         id: selectedList.id,
         name: selectedList.name,
-        items: [...selectedList.items, completedItem],
+        items: [
+          ...selectedList.items.filter((i: Item) => i.itemId !== selectedItemId),
+          completedItem,
+        ],
       });
       stopCompletingItem();
     }
