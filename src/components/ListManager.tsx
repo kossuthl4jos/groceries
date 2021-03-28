@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Collapse from 'react-bootstrap/Collapse';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { Item, List } from '../types';
+import { List } from '../types';
 import { AddListModal } from './';
 import { ButtonGroup } from 'react-bootstrap';
 import { DeleteListModal } from './DeleteListModal';
@@ -12,23 +12,25 @@ const uuidv4 = require('uuid/v4');
 
 export const ListManager = ({
   addList,
-  removeList,
-  addItem,
+  deleteList,
+  updateList,
   selectedListId,
-  updateSelectedList,
+  updateSelectedListId,
   lists,
 }: {
   lists?: Array<List>;
   addList: (list: List) => void;
-  removeList: (listId: string) => void;
-  addItem: (item: Item) => void;
+  deleteList: (listId: string) => void;
+  updateList: (list: List) => void;
   selectedListId?: string;
-  updateSelectedList: (selectedListId: string) => void;
+  updateSelectedListId: (selectedListId: string) => void;
 }) => {
   const [addListModalVisible, setAddListModalVisible] = useState(false);
   const [deleteListModalVisible, setDeleteListModalVisible] = useState(false);
   const [addingItem, setAddingItem] = useState(false);
   const [newItemName, setNewItemName] = useState('');
+
+  const selectedList = lists?.find((list) => list.id === selectedListId);
 
   const stopAddingItem = () => {
     setAddingItem(false);
@@ -56,9 +58,16 @@ export const ListManager = ({
       completedBy: '',
       price: undefined,
     };
-    addItem(newItem);
-    stopAddingItem();
-    clearStateForItem();
+
+    if (selectedList != null) {
+      updateList({
+        id: selectedList.id,
+        name: selectedList.name,
+        items: [...selectedList.items, newItem],
+      });
+      stopAddingItem();
+      clearStateForItem();
+    }
   };
 
   const toogleItemForm = () => {
@@ -90,7 +99,7 @@ export const ListManager = ({
           <InputGroup>
             <Form.Control
               onChange={(e: ChangeEvent) =>
-                updateSelectedList((e.target as HTMLInputElement).value)
+                updateSelectedListId((e.target as HTMLInputElement).value)
               }
               value={selectedListId}
               as="select">
@@ -142,7 +151,10 @@ export const ListManager = ({
         list={lists?.find((list) => list.id === selectedListId)}
         show={deleteListModalVisible}
         stopDeletingList={() => setDeleteListModalVisible(false)}
-        handleOnClickDelete={(listId: string) => removeList(listId)}
+        handleOnClickDelete={(listId: string) => {
+          deleteList(listId);
+          setDeleteListModalVisible(false);
+        }}
       />
     </div>
   );
