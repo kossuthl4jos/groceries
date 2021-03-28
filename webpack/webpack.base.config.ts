@@ -1,6 +1,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
-import webpack from 'webpack';
+import webpack, { EnvironmentPlugin } from 'webpack';
 
 import HtmlPlugin from 'html-webpack-plugin';
 import { Configuration } from 'webpack';
@@ -26,6 +26,7 @@ const baseConfig: Configuration = {
   },
   plugins: [
     new HtmlPlugin({ filename: 'index.html', template: 'public/index.html' }),
+    new EnvironmentPlugin(['NODE_ENV', 'WEBPACK_PORT', 'BACKEND', 'REMOTE_BACKEND_HOST']),
     new webpack.ProgressPlugin((percentage, message) => {
       const currentProgress = `${(percentage * 100).toFixed()}% ${message}`;
       if (progress !== currentProgress) {
