@@ -4,6 +4,8 @@ import { LocalGateWay } from './localGateway';
 export interface IGateway {
   getLists: () => Array<List>;
   addList: (list: List) => void;
+  deleteList: (listId: string) => void;
+  updateList: (list: List) => void;
 }
 
 const backend = process.env.BACKEND;
