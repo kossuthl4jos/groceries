@@ -69,7 +69,13 @@ export const Lists = () => {
         updateSelectedListId={(selectedListId: string) => setSelectedListId(selectedListId)}
       />
       {items != null && items.length > 0 ? (
-        <Items deleteItem={deleteItem} completeItem={completeItem} items={items} />
+        <Items
+          selectedList={lists.find((list) => list.id === selectedListId)}
+          updateList={updateList}
+          deleteItem={deleteItem}
+          completeItem={completeItem}
+          items={items}
+        />
       ) : null}
     </Fragment>
   );

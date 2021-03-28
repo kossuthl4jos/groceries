@@ -4,15 +4,19 @@ import { CompletedItems } from './CompletedItems';
 
 import { Collapse } from 'react-bootstrap';
 
-import { Item } from '../types';
+import { Item, List } from '../types';
 import { CompleteItemModal } from './CompleteItemModal';
 
 export const Items = ({
   items,
+  updateList,
+  selectedList,
   deleteItem,
   completeItem,
 }: {
   items: Array<Item>;
+  selectedList?: List;
+  updateList: (list: List) => void;
   deleteItem: (itemId: string) => void;
   completeItem: (item: Item) => void;
 }) => {
@@ -33,8 +37,16 @@ export const Items = ({
       completedBy,
       price: Number(price),
     };
-    completeItem(completedItem);
-    stopCompletingItem();
+
+    if (selectedList != null) {
+      updateList({
+        id: selectedList.id,
+        name: selectedList.name,
+        items: [...selectedList.items, completedItem],
+      });
+      completeItem(completedItem);
+      stopCompletingItem();
+    }
   };
 
   const handleOnClickDelete = () => {
