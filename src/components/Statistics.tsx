@@ -1,9 +1,10 @@
 import React from 'react';
+import { Gateway } from '../gateway';
 import { Item, List } from '../types';
-import { useFetchLists } from '../utils';
 
 export const Statistics = () => {
-  const { lists } = useFetchLists();
+  const { gatewayService } = new Gateway();
+  const lists = gatewayService.getLists();
 
   const getTotalAmountSpent = () => {
     let totalAmountSpent = 0;
