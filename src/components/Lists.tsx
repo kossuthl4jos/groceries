@@ -1,10 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Item, List } from '../types';
-import { useFetchLists, useSaveLists } from '../utils';
+import { useSaveLists } from '../utils';
 import { ListManager, Items } from './';
+import { Gateway } from '../gateway/';
 
 export const Lists = () => {
-  const { lists } = useFetchLists();
+  const { gatewayService } = new Gateway();
+  const lists = gatewayService.getLists();
   const { saveLists } = useSaveLists();
   const [selectedListId, setSelectedListId] = useState<string>();
 
@@ -17,8 +19,7 @@ export const Lists = () => {
   const items = lists?.find((item) => item.id === selectedListId)?.items;
 
   const addList = (list: List) => {
-    const newLists: Array<List> = [...(lists ?? []), list];
-    saveLists(newLists);
+    gatewayService.addList(list);
     setSelectedListId(list.id);
   };
 
