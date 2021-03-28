@@ -11,14 +11,10 @@ export const Items = ({
   items,
   updateList,
   selectedList,
-  deleteItem,
-  completeItem,
 }: {
   items: Array<Item>;
   selectedList?: List;
   updateList: (list: List) => void;
-  deleteItem: (itemId: string) => void;
-  completeItem: (item: Item) => void;
 }) => {
   const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
@@ -44,14 +40,19 @@ export const Items = ({
         name: selectedList.name,
         items: [...selectedList.items, completedItem],
       });
-      completeItem(completedItem);
       stopCompletingItem();
     }
   };
 
   const handleOnClickDelete = () => {
-    deleteItem(selectedItemId);
-    setCompletingItem(false);
+    if (selectedList != null) {
+      updateList({
+        id: selectedList.id,
+        name: selectedList.name,
+        items: [...selectedList.items.filter((item) => item.itemId != selectedItemId)],
+      });
+      setCompletingItem(false);
+    }
   };
 
   const startCompletingItem = (itemId: string) => {

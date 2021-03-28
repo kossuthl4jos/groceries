@@ -1,13 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { Item, List } from '../types';
-import { useSaveLists } from '../utils';
+import { List } from '../types';
 import { ListManager, Items } from './';
 import { Gateway } from '../gateway/';
 
 export const Lists = () => {
   const { gatewayService } = new Gateway();
   const lists = gatewayService.getLists();
-  const { saveLists } = useSaveLists();
   const [selectedListId, setSelectedListId] = useState<string>();
 
   useEffect(() => {
@@ -34,30 +32,6 @@ export const Lists = () => {
     gatewayService.updateList(list);
   };
 
-  const completeItem = (completedItem: Item) => {
-    const newLists: Array<List> = [...(lists ?? [])];
-    Object.assign(
-      newLists
-        .find((list) => list.id === selectedListId)!
-        .items.find((item) => item.itemId === completedItem.itemId),
-      completedItem,
-    );
-
-    saveLists(newLists);
-  };
-
-  const deleteItem = (itemId: string) => {
-    const newLists: Array<List> = [...(lists ?? [])];
-    const itemIndexToDelete = newLists
-      .find((list) => list.id === selectedListId)!
-      .items.findIndex((item) => item.itemId === itemId);
-
-    if (itemIndexToDelete != null && selectedListId != null) {
-      newLists.find((list) => list.id === selectedListId)!.items.splice(itemIndexToDelete, 1);
-      saveLists(newLists);
-    }
-  };
-
   return (
     <Fragment>
       <ListManager
@@ -72,8 +46,6 @@ export const Lists = () => {
         <Items
           selectedList={lists.find((list) => list.id === selectedListId)}
           updateList={updateList}
-          deleteItem={deleteItem}
-          completeItem={completeItem}
           items={items}
         />
       ) : null}
