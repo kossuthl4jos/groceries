@@ -12,7 +12,11 @@ export class RemoteGateWay {
       return;
     }
 
-    const body = await res.json();
+    const body = await res.json().then((data) =>
+      data.forEach((list: any) => {
+        list.items = [...JSON.parse(list.items as string)];
+      }),
+    );
 
     return body;
   };
