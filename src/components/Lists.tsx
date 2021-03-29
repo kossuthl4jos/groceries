@@ -4,7 +4,7 @@ import { ListManager, Items } from './';
 import { getLists, addList, deleteList, updateList } from '../gateway/';
 
 export const Lists = () => {
-  const [lists, setLists] = useState(getLists());
+  const [lists, setLists] = useState<Array<List>>([]);
   const [selectedListId, setSelectedListId] = useState<string>();
 
   useEffect(() => {
@@ -14,31 +14,36 @@ export const Lists = () => {
   }, [lists]);
 
   useEffect(() => {
-    const newLists = getLists();
-    if (newLists != null && newLists.length > 0 && selectedListId == null) {
-      setLists(newLists);
-    }
+    const fetchData = async () => {
+      const newLists = await getLists();
+
+      if (newLists != null && newLists.length > 0 && selectedListId == null) {
+        setLists(newLists);
+      }
+    };
+
+    fetchData();
   }, [getLists()]);
 
   const items = lists?.find((item) => item.id === selectedListId)?.items;
 
-  const handleAddList = (list: List) => {
+  const handleAddList = async (list: List) => {
     addList(list);
-    setLists(getLists());
+    setLists(await getLists());
     setSelectedListId(list.id);
   };
 
-  const handleDeleteList = (listId: string) => {
+  const handleDeleteList = async (listId: string) => {
     deleteList(listId);
-    setLists(getLists());
+    setLists(await getLists());
     if (lists[0].id != null) {
       setSelectedListId(lists[0].id);
     }
   };
 
-  const handleUpdateList = (list: List) => {
+  const handleUpdateList = async (list: List) => {
     updateList(list);
-    setLists(getLists());
+    setLists(await getLists());
   };
 
   return (

@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Item, List } from '../types';
 import { getLists } from '../gateway/';
 
 export const Statistics = () => {
-  const lists = getLists();
+  const [lists, setLists] = useState<Array<List>>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const newLists = await getLists();
+
+      if (newLists != null && newLists.length > 0) {
+        setLists(newLists);
+      }
+    };
+
+    fetchData();
+  }, [getLists()]);
 
   const getTotalAmountSpent = () => {
     let totalAmountSpent = 0;

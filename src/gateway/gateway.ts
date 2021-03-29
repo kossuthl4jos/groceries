@@ -1,5 +1,6 @@
 import { List } from '~/types';
 import { LocalGateWay } from './localGateway';
+import { RemoteGateWay } from './remoteGateway';
 
 // export interface IGateway {
 //   getLists: () => Array<List>;
@@ -9,9 +10,9 @@ import { LocalGateWay } from './localGateway';
 // }
 
 const backendMode = process.env.BACKEND;
-const backendService = backendMode === 'local' ? new LocalGateWay() : new LocalGateWay();
+const backendService = backendMode === 'local' ? new LocalGateWay() : new RemoteGateWay();
 
-export function getLists(): Array<List> {
+export async function getLists(): Promise<Array<List>> {
   return backendService.getLists();
 }
 

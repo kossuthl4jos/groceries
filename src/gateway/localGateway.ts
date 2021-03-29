@@ -9,7 +9,7 @@ function saveLists(lists: Array<List>) {
 }
 
 export class LocalGateWay {
-  getLists = () => {
+  getLists = async () => {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ lists: [] }';
     const { lists } = JSON.parse(groceriesList != null ? groceriesList : '{ lists: [] }');
 
