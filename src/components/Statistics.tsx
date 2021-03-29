@@ -1,10 +1,9 @@
 import React from 'react';
-import { Gateway } from '../gateway';
 import { Item, List } from '../types';
+import { getLists } from '../gateway/';
 
 export const Statistics = () => {
-  const { gatewayService } = new Gateway();
-  const lists = gatewayService.getLists();
+  const lists = getLists();
 
   const getTotalAmountSpent = () => {
     let totalAmountSpent = 0;

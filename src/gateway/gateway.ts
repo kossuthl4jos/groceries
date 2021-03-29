@@ -1,19 +1,28 @@
 import { List } from '~/types';
 import { LocalGateWay } from './localGateway';
 
-export interface IGateway {
-  getLists: () => Array<List>;
-  addList: (list: List) => void;
-  deleteList: (listId: string) => void;
-  updateList: (list: List) => void;
+// export interface IGateway {
+//   getLists: () => Array<List>;
+//   addList: (list: List) => void;
+//   deleteList: (listId: string) => void;
+//   updateList: (list: List) => void;
+// }
+
+const backendMode = process.env.BACKEND;
+const backendService = backendMode === 'local' ? new LocalGateWay() : new LocalGateWay();
+
+export function getLists(): Array<List> {
+  return backendService.getLists();
 }
 
-const backend = process.env.BACKEND;
+export function addList(list: List): void {
+  backendService.addList(list);
+}
 
-export class Gateway {
-  gatewayService: IGateway;
+export function deleteList(listId: string): void {
+  backendService.deleteList(listId);
+}
 
-  constructor() {
-    this.gatewayService = backend === 'local' ? new LocalGateWay() : new LocalGateWay();
-  }
+export function updateList(list: List): void {
+  backendService.updateList(list);
 }

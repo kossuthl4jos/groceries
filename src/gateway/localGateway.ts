@@ -1,5 +1,4 @@
 import { List } from '~/types';
-import { IGateway } from './gateway';
 
 const TOKEN_KEY = 'groceries-lists';
 
@@ -9,7 +8,7 @@ function saveLists(lists: Array<List>) {
   }
 }
 
-export class LocalGateWay implements IGateway {
+export class LocalGateWay {
   getLists = () => {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ lists: [] }';
     const { lists } = JSON.parse(groceriesList != null ? groceriesList : '{ lists: [] }');
