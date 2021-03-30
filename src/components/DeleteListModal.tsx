@@ -16,7 +16,6 @@ export const DeleteListModal = ({
   stopDeletingList,
   handleOnClickDelete,
 }: DeleteListModalProps) => {
-  console.log(list);
   const numberOfItemsToComplete = () => {
     return list?.items.filter((item) => item.completed === true).length ?? 0;
   };
