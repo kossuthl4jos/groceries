@@ -12,13 +12,13 @@ export class RemoteGateWay {
       return;
     }
 
-    const body = await res.json().then((data) =>
-      data.forEach((list: any) => {
-        list.items = [...JSON.parse(list.items as string)];
-      }),
-    );
+    const json = await res.json();
 
-    return body;
+    const result = json.map((list: any) => {
+      return { ...list, items: [...JSON.parse(list.items)] };
+    });
+
+    return result;
   };
 
   addList = async (list: List) => {
