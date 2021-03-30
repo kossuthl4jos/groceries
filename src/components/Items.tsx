@@ -63,13 +63,9 @@ export const Items = ({
     setSelectedItemId(itemId);
   };
 
-  const hasSomeCompleted = () => {
-    return items.some((item: Item) => item.completed);
-  };
+  const hasSomeCompleted = items.some((item: Item) => item.completed);
 
-  const hasAllCompleted = () => {
-    return items.every((item: Item) => item.completed);
-  };
+  const hasAllCompleted = items.every((item: Item) => item.completed);
 
   const toogleCompletedItems = () => {
     setShowCompletedItems(!showCompletedItems);
@@ -89,7 +85,7 @@ export const Items = ({
 
   return (
     <div className="main-component">
-      {hasAllCompleted()
+      {hasAllCompleted
         ? getItemPlaceholder()
         : items.map(
             (item: Item) =>
@@ -104,7 +100,7 @@ export const Items = ({
                 </div>
               ),
           )}
-      {hasSomeCompleted() && (
+      {hasSomeCompleted && (
         <Fragment>
           <div className="formGroup">
             <div className="completed-header input-group" onClick={toogleCompletedItems}>
