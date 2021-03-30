@@ -9,7 +9,7 @@ export const Lists = () => {
 
   useEffect(() => {
     if (lists != null && lists.length > 0 && selectedListId == null) {
-      setSelectedListId(lists[0].id);
+      setSelectedListId(lists[0]._id);
     }
   }, [lists]);
 
@@ -25,19 +25,19 @@ export const Lists = () => {
     fetchData();
   }, [getLists()]);
 
-  const items = lists?.find((item) => item.id === selectedListId)?.items;
+  const items = lists.length > 0 ? lists?.find((item) => item._id === selectedListId)?.items : [];
 
   const handleAddList = async (list: List) => {
     addList(list);
     setLists(await getLists());
-    setSelectedListId(list.id);
+    setSelectedListId(list._id);
   };
 
   const handleDeleteList = async (listId: string) => {
     deleteList(listId);
     setLists(await getLists());
-    if (lists[0].id != null) {
-      setSelectedListId(lists[0].id);
+    if (lists[0]._id != null) {
+      setSelectedListId(lists[0]._id);
     }
   };
 
@@ -46,6 +46,7 @@ export const Lists = () => {
     setLists(await getLists());
   };
 
+  console.log(lists);
   return (
     <Fragment>
       <ListManager
@@ -58,7 +59,7 @@ export const Lists = () => {
       />
       {items != null && items.length > 0 ? (
         <Items
-          selectedList={lists.find((list) => list.id === selectedListId)}
+          selectedList={lists.find((list) => list._id === selectedListId)}
           updateList={handleUpdateList}
           items={items}
         />

@@ -16,6 +16,7 @@ export const DeleteListModal = ({
   stopDeletingList,
   handleOnClickDelete,
 }: DeleteListModalProps) => {
+  console.log(list);
   const numberOfItemsToComplete = () => {
     return list?.items.filter((item) => item.completed === true).length ?? 0;
   };
@@ -37,7 +38,7 @@ export const DeleteListModal = ({
         </Button>
         <Button
           disabled={list == null}
-          onClick={() => handleOnClickDelete(list!.id)}
+          onClick={() => handleOnClickDelete(list!._id)}
           variant="danger">
           Delete
         </Button>

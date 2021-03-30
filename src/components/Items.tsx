@@ -36,7 +36,7 @@ export const Items = ({
 
     if (selectedList != null) {
       updateList({
-        id: selectedList.id,
+        _id: selectedList._id,
         name: selectedList.name,
         items: [
           ...selectedList.items.filter((i: Item) => i.itemId !== selectedItemId),
@@ -50,7 +50,7 @@ export const Items = ({
   const handleOnClickDelete = () => {
     if (selectedList != null) {
       updateList({
-        id: selectedList.id,
+        _id: selectedList._id,
         name: selectedList.name,
         items: [...selectedList.items.filter((item) => item.itemId != selectedItemId)],
       });

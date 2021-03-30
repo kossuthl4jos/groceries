@@ -30,7 +30,7 @@ export const ListManager = ({
   const [addingItem, setAddingItem] = useState(false);
   const [newItemName, setNewItemName] = useState('');
 
-  const selectedList = lists?.find((list) => list.id === selectedListId);
+  const selectedList = lists?.find((list) => list._id === selectedListId);
 
   const stopAddingItem = () => {
     setAddingItem(false);
@@ -42,7 +42,7 @@ export const ListManager = ({
 
   const handleOnClickSave = (newListName: string) => {
     const newList = {
-      id: uuidv4(),
+      _id: uuidv4(),
       name: newListName,
       items: [],
     };
@@ -61,7 +61,7 @@ export const ListManager = ({
 
     if (selectedList != null) {
       updateList({
-        id: selectedList.id,
+        _id: selectedList._id,
         name: selectedList.name,
         items: [...selectedList.items, newItem],
       });
@@ -105,7 +105,7 @@ export const ListManager = ({
               as="select">
               {lists != null && lists.length > 0 ? (
                 lists.map((list: List) => (
-                  <option value={list.id} key={list.id}>
+                  <option value={list._id} key={list._id}>
                     {list.name}
                   </option>
                 ))
@@ -138,24 +138,23 @@ export const ListManager = ({
               </Button>
             </Form>
           </Collapse>
+          <AddListModal
+            show={addListModalVisible}
+            stopAddingList={() => setAddListModalVisible(false)}
+            handleOnClickSave={handleOnClickSave}
+          />
+
+          <DeleteListModal
+            list={lists?.find((list) => list._id === selectedListId)}
+            show={deleteListModalVisible}
+            stopDeletingList={() => setDeleteListModalVisible(false)}
+            handleOnClickDelete={(listId: string) => {
+              deleteList(listId);
+              setDeleteListModalVisible(false);
+            }}
+          />
         </Fragment>
       ) : null}
-
-      <AddListModal
-        show={addListModalVisible}
-        stopAddingList={() => setAddListModalVisible(false)}
-        handleOnClickSave={handleOnClickSave}
-      />
-
-      <DeleteListModal
-        list={lists?.find((list) => list.id === selectedListId)}
-        show={deleteListModalVisible}
-        stopDeletingList={() => setDeleteListModalVisible(false)}
-        handleOnClickDelete={(listId: string) => {
-          deleteList(listId);
-          setDeleteListModalVisible(false);
-        }}
-      />
     </div>
   );
 };

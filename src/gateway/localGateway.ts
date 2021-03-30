@@ -31,14 +31,14 @@ export class LocalGateWay {
 
     const newLists: Array<List> = [...(lists ?? [])];
 
-    saveLists(newLists.filter((list) => list.id !== listId));
+    saveLists(newLists.filter((list) => list._id !== listId));
   };
 
   updateList = (list: List) => {
     const groceriesList = localStorage.getItem(TOKEN_KEY) ?? '{ lists: [] }';
     const { lists } = JSON.parse(groceriesList);
 
-    const newLists: Array<List> = [...(lists.filter((l: List) => l.id !== list.id) ?? []), list];
+    const newLists: Array<List> = [...(lists.filter((l: List) => l._id !== list._id) ?? []), list];
     saveLists(newLists);
   };
 }
