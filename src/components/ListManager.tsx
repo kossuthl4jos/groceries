@@ -55,8 +55,6 @@ export const ListManager = ({
       itemId: uuidv4(),
       name: newItemName,
       completed: false,
-      completedBy: '',
-      price: undefined,
     };
 
     if (selectedList != null) {

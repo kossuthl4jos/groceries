@@ -14,19 +14,11 @@ export class RemoteGateWay {
 
     const json = await res.json();
 
-    const result = json.map((list: any) => {
-      if (list.items != null) {
-        return { ...list, items: [...JSON.parse(list.items)] };
-      } else {
-        return { ...list, items: [] };
-      }
-    });
-
-    return result;
+    return json;
   };
 
   addList = async (list: List) => {
-    const { _id, items, ...listToSubmit } = list;
+    const { _id, ...listToSubmit } = list;
 
     const res = await fetch(BACKED_HOST + '/list', {
       method: 'POST',
@@ -52,6 +44,18 @@ export class RemoteGateWay {
   };
 
   updateList = async (list: List) => {
-    console.log('updating: ', list);
+    const { _id, ...listToSubmit } = list;
+
+    const res = await fetch(BACKED_HOST + `/list/${_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(listToSubmit),
+    });
+
+    if (res.status === 500 || !res.ok) {
+      console.error('could not update list');
+    }
   };
 }
