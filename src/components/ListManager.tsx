@@ -7,8 +7,7 @@ import { List } from '../types';
 import { AddListModal } from './';
 import { ButtonGroup } from 'react-bootstrap';
 import { DeleteListModal } from './DeleteListModal';
-
-const uuidv4 = require('uuid/v4');
+import { v4 as uuidv4 } from 'uuid';
 
 export const ListManager = ({
   addList,
