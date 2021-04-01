@@ -7,6 +7,14 @@ export const Lists = () => {
   const [lists, setLists] = useState<Array<List>>([]);
   const [selectedListId, setSelectedListId] = useState<string>();
 
+  const refreshLists = async () => {
+    const newLists = await getLists();
+
+    if (newLists != null) {
+      setLists(newLists);
+    }
+  };
+
   useEffect(() => {
     if (lists != null && lists.length > 0 && selectedListId == null) {
       setSelectedListId(lists[0]._id);
@@ -14,36 +22,30 @@ export const Lists = () => {
   }, [lists]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const newLists = await getLists();
-
-      if (newLists != null && newLists.length > 0 && selectedListId == null) {
-        setLists(newLists);
-      }
-    };
-
-    fetchData();
-  }, [getLists()]);
+    refreshLists();
+  }, []);
 
   const items = lists.length > 0 ? lists?.find((item) => item._id === selectedListId)?.items : [];
 
   const handleAddList = async (list: List) => {
-    addList(list);
-    setLists(await getLists());
-    setSelectedListId(list._id);
+    await addList(list);
+    await refreshLists();
   };
 
   const handleDeleteList = async (listId: string) => {
-    deleteList(listId);
-    setLists(await getLists());
-    if (lists[0]._id != null) {
+    //deleting last list is not OK
+    await deleteList(listId);
+    await refreshLists();
+    if (lists != null && lists.length > 0) {
       setSelectedListId(lists[0]._id);
+    } else {
+      setSelectedListId(undefined);
     }
   };
 
   const handleUpdateList = async (list: List) => {
-    updateList(list);
-    setLists(await getLists());
+    await updateList(list);
+    await refreshLists();
   };
 
   return (
