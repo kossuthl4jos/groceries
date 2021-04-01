@@ -136,23 +136,24 @@ export const ListManager = ({
               </Button>
             </Form>
           </Collapse>
-          <AddListModal
-            show={addListModalVisible}
-            stopAddingList={() => setAddListModalVisible(false)}
-            handleOnClickSave={handleOnClickSave}
-          />
-
-          <DeleteListModal
-            list={lists?.find((list) => list._id === selectedListId)}
-            show={deleteListModalVisible}
-            stopDeletingList={() => setDeleteListModalVisible(false)}
-            handleOnClickDelete={(listId: string) => {
-              deleteList(listId);
-              setDeleteListModalVisible(false);
-            }}
-          />
         </Fragment>
       ) : null}
+
+      <AddListModal
+        show={addListModalVisible}
+        stopAddingList={() => setAddListModalVisible(false)}
+        handleOnClickSave={handleOnClickSave}
+      />
+
+      <DeleteListModal
+        list={lists?.find((list) => list._id === selectedListId)}
+        show={deleteListModalVisible}
+        stopDeletingList={() => setDeleteListModalVisible(false)}
+        handleOnClickDelete={(listId: string) => {
+          deleteList(listId);
+          setDeleteListModalVisible(false);
+        }}
+      />
     </div>
   );
 };
