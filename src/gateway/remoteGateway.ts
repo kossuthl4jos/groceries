@@ -42,7 +42,13 @@ export class RemoteGateWay {
   };
 
   deleteList = async (listId: string) => {
-    console.log('deleting: ', listId);
+    const res = await fetch(BACKED_HOST + `/list/${listId}`, {
+      method: 'DELETE',
+    });
+
+    if (res.status === 500 || !res.ok) {
+      console.error('could not delete slist');
+    }
   };
 
   updateList = async (list: List) => {
