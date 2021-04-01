@@ -46,7 +46,6 @@ export const Lists = () => {
     setLists(await getLists());
   };
 
-  console.log(lists);
   return (
     <Fragment>
       <ListManager

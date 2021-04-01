@@ -9,20 +9,36 @@ export class RemoteGateWay {
     });
 
     if (res.status === 500 || !res.ok) {
-      return;
+      console.error('could not fetch lists');
     }
 
     const json = await res.json();
 
     const result = json.map((list: any) => {
-      return { ...list, items: [...JSON.parse(list.items)] };
+      if (list.items != null) {
+        return { ...list, items: [...JSON.parse(list.items)] };
+      } else {
+        return { ...list, items: [] };
+      }
     });
 
     return result;
   };
 
   addList = async (list: List) => {
-    console.log('adding: ', list);
+    const { _id, items, ...listToSubmit } = list;
+
+    const res = await fetch(BACKED_HOST + '/list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(listToSubmit),
+    });
+
+    if (res.status === 500 || !res.ok) {
+      console.error('could not save new list');
+    }
   };
 
   deleteList = async (listId: string) => {
