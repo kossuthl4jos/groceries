@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Button, FormControl, Modal, ModalTitle } from 'react-bootstrap';
+import { Button, FormControl, Modal, ModalBody, ModalTitle } from 'react-bootstrap';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
 
 interface AddListModalProps {
@@ -17,7 +17,7 @@ export const AddListModal = ({ show, stopAddingList, handleOnClickSave }: AddLis
         <ModalTitle>New list</ModalTitle>
       </ModalHeader>
 
-      <Modal.Body>
+      <ModalBody>
         <FormControl
           size="lg"
           type="text"
@@ -26,13 +26,16 @@ export const AddListModal = ({ show, stopAddingList, handleOnClickSave }: AddLis
             setnewListName((e.target as HTMLInputElement).value);
           }}
         />
-      </Modal.Body>
+      </ModalBody>
 
       <Modal.Footer>
         <Button variant="secondary" onClick={stopAddingList}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => handleOnClickSave(newListName)}>
+        <Button
+          variant="primary"
+          onClick={() => handleOnClickSave(newListName)}
+          disabled={newListName === ''}>
           Save changes
         </Button>
       </Modal.Footer>
