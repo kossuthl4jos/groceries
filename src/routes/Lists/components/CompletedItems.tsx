@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Item } from '../types';
+import { Item } from '~/types';
 
 interface CompletedItemsProps {
   completedItems: Array<Item>;

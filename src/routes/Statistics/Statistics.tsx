@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Item, List } from '../types';
-import { getLists } from '../gateway/';
+import { Item, List } from '../../types';
+import { getLists } from '../../gateway';
 
 export const Statistics = () => {
   const [lists, setLists] = useState<Array<List>>([]);

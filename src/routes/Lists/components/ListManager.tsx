@@ -1,6 +1,4 @@
 import React, { ChangeEvent, Fragment, useState } from 'react';
-import { List } from '../types';
-import { AddListModal } from './';
 import {
   ButtonGroup,
   Button,
@@ -11,8 +9,9 @@ import {
   FormText,
   FormGroup,
 } from 'react-bootstrap';
-import { DeleteListModal } from './DeleteListModal';
 import { v4 as uuidv4 } from 'uuid';
+import { AddListModal, DeleteListModal } from './';
+import { List } from '~/types';
 
 export const ListManager = ({
   addList,

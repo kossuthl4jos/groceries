@@ -13,7 +13,7 @@ import {
 } from 'react-bootstrap';
 import InputGroupWithExtras from 'react-bootstrap/esm/InputGroup';
 import ModalHeader from 'react-bootstrap/esm/ModalHeader';
-import { Item } from '../types';
+import { Item } from '~/types';
 
 interface CompleteItemModalProps {
   completingItem: boolean;

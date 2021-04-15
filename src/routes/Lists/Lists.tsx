@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import { List } from '../types';
-import { ListManager, Items } from './';
-import { getLists, addList, deleteList, updateList } from '../gateway/';
+import { List } from '../../types';
+import { getLists, addList, deleteList, updateList } from '../../gateway';
+import { ListManager, Items } from './components';
 
 export const Lists = () => {
   const [lists, setLists] = useState<Array<List>>([]);

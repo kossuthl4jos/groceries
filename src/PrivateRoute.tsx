@@ -13,6 +13,7 @@ export const PrivateRoute = ({ children, ...rest }: { children: ReactNode }) => 
     }
   }, []);
 
+  console.log('private route is rendering with: ', children);
   return (
     <AuthContext.Provider value={{ authToken, userName }}>
       <Header />

@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 
 import { PrivateRoute } from './PrivateRoute';
 
-import { Login, Signup, Statistics } from './components';
-import { Lists } from './components/Lists';
+import { Login, Signup } from './components';
+
+import { Lists, Statistics } from './routes';
 
 export const App = () => {
   return (
