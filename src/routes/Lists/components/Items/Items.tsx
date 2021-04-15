@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Collapse } from 'react-bootstrap';
-import { CompleteItemModal, CompletedItems } from './';
+import { CompleteItemModal, CompletedItems } from '..';
 import { Item, List } from '~/types';
 
 export const Items = ({
