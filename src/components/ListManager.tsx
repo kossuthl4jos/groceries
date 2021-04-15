@@ -1,11 +1,16 @@
 import React, { ChangeEvent, Fragment, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Collapse from 'react-bootstrap/Collapse';
-import InputGroup from 'react-bootstrap/InputGroup';
 import { List } from '../types';
 import { AddListModal } from './';
-import { ButtonGroup } from 'react-bootstrap';
+import {
+  ButtonGroup,
+  Button,
+  Form,
+  Collapse,
+  InputGroup,
+  FormControl,
+  FormText,
+  FormGroup,
+} from 'react-bootstrap';
 import { DeleteListModal } from './DeleteListModal';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -92,9 +97,9 @@ export const ListManager = ({
       </div>
 
       <Form>
-        <Form.Group controlId="selectList">
+        <FormGroup controlId="selectList">
           <InputGroup>
-            <Form.Control
+            <FormControl
               onChange={(e: ChangeEvent) =>
                 updateSelectedListId((e.target as HTMLInputElement).value)
               }
@@ -110,9 +115,9 @@ export const ListManager = ({
                 <option>Please create a list first</option>
               )}
               ;
-            </Form.Control>
+            </FormControl>
           </InputGroup>
-        </Form.Group>
+        </FormGroup>
       </Form>
 
       {lists != null && lists.length > 0 ? (
@@ -122,15 +127,15 @@ export const ListManager = ({
           </div>
           <Collapse in={addingItem}>
             <Form>
-              <Form.Control
+              <FormControl
                 placeholder="Enter item name"
                 value={newItemName}
                 onChange={handleNewItemName}
               />
-              <Form.Text className="text-muted">
+              <FormText className="text-muted">
                 This item will be added to the selected shopping list.
-              </Form.Text>
-              <Button variant="primary" onClick={handleOnClickAdd}>
+              </FormText>
+              <Button variant="primary" onClick={handleOnClickAdd} disabled={newItemName === ''}>
                 Add
               </Button>
             </Form>
