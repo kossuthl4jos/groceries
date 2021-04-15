@@ -46,7 +46,7 @@ export const CompleteItemModal = ({
           <InputGroup>
             <InputGroupWithExtras.Text>€</InputGroupWithExtras.Text>
             <FormControl
-              type="text"
+              type="number"
               placeholder="Price"
               aria-describedby="inputGroupPrepend"
               onChange={(e: ChangeEvent) => {
@@ -71,7 +71,10 @@ export const CompleteItemModal = ({
             <Button variant="secondary" onClick={stopCompletingItem}>
               Close
             </Button>
-            <Button variant="primary" onClick={() => handleOnClickSave(completedBy, price)}>
+            <Button
+              variant="primary"
+              onClick={() => handleOnClickSave(completedBy, price)}
+              disabled={completedBy === '' || price === ''}>
               Save
             </Button>
           </ButtonGroup>
