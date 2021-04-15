@@ -5,17 +5,17 @@ import { getLists } from '../../gateway';
 export const Statistics = () => {
   const [lists, setLists] = useState<Array<List>>([]);
 
+  const refreshLists = async () => {
+    const newLists = await getLists();
+
+    if (newLists != null) {
+      setLists(newLists);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const newLists = await getLists();
-
-      if (newLists != null && newLists.length > 0) {
-        setLists(newLists);
-      }
-    };
-
-    fetchData();
-  }, [getLists()]);
+    refreshLists();
+  }, []);
 
   const getTotalAmountSpent = () => {
     let totalAmountSpent = 0;
