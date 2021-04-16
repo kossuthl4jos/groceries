@@ -1,11 +1,50 @@
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { create } from 'react-test-renderer';
+
 import { Header } from '../../src/components';
 
-describe('Header', () => {
-  test('Header renders properly', () => {
-    const component = create(<Header />).toJSON();
+let mockAuthDetails = { authToken: undefined, userName: undefined };
+const mockNavigate = jest.fn();
+const mockClearAuthToken = jest.fn();
 
-    expect(component.type).toBe('div');
+jest.mock('../../src/context', () => ({
+  useAuth: jest.fn().mockImplementation(() => {
+    return mockAuthDetails;
+  }),
+  clearAuthToken: jest.fn().mockImplementation(() => mockClearAuthToken()),
+}));
+
+jest.mock('react-router-dom', () => ({
+  ...(jest.requireActual('react-router-dom') as any),
+  useNavigate: () => mockNavigate,
+  Link: jest.fn().mockImplementation(({ children }) => {
+    return children;
+  }),
+}));
+
+describe('Header', () => {
+  test('Header rendered with sign in, when user is not yet authenticated', () => {
+    const { getByText } = render(<Header />);
+
+    expect(getByText('Sign in')).toBeTruthy();
+  });
+
+  test('Header rendered with log out, when user is authenticated', () => {
+    mockAuthDetails = { authToken: 'authToken', userName: 'userName' };
+
+    const { getByText } = render(<Header />);
+
+    expect(getByText('Groceries - Hello userName!')).toBeTruthy();
+    expect(getByText('Log out')).toBeTruthy();
+  });
+
+  test('logOut delegates, when user is logged in', () => {
+    mockAuthDetails = { authToken: 'authToken', userName: 'userName' };
+
+    const { getByText } = render(<Header />);
+    fireEvent.click(getByText('Log out'));
+
+    expect(mockClearAuthToken).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 });
