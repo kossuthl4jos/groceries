@@ -62,12 +62,12 @@ export const Signup = () => {
           }}
           value={passwordAgain}
         />
-        <FormText className="text-muted">
-          Choose one that you don't mind exposing to the world
-        </FormText>
       </FormGroup>
 
-      <Button variant="primary" type="submit" onClick={postSignup}>
+      <Button
+        variant="primary"
+        onClick={postSignup}
+        disabled={userName === '' || password === '' || passwordAgain === ''}>
         Submit
       </Button>
 
