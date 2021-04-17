@@ -47,7 +47,7 @@ export const Login = () => {
           />
         </FormGroup>
 
-        <Button variant="primary" type="submit" onClick={postLogin}>
+        <Button variant="primary" onClick={postLogin} disabled={userName === '' || password === ''}>
           Sign in
         </Button>
 
