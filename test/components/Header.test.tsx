@@ -27,6 +27,8 @@ describe('Header', () => {
     const { getByText } = render(<Header />);
 
     expect(getByText('Sign in')).toBeTruthy();
+    expect(mockClearAuthToken).toHaveBeenCalledTimes(0);
+    expect(mockNavigate).toHaveBeenCalledTimes(0);
   });
 
   test('Header rendered with log out, when user is authenticated', () => {
@@ -36,6 +38,8 @@ describe('Header', () => {
 
     expect(getByText('Groceries - Hello userName!')).toBeTruthy();
     expect(getByText('Log out')).toBeTruthy();
+    expect(mockClearAuthToken).toHaveBeenCalledTimes(0);
+    expect(mockNavigate).toHaveBeenCalledTimes(0);
   });
 
   test('logOut delegates, when user is logged in', () => {
