@@ -14,7 +14,6 @@ export const Login = () => {
 
   const postLogin = async () => {
     const { error } = await login({ userName, password });
-
     if (error == null) {
       navigate('/lists', { replace: true });
     } else {

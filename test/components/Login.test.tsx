@@ -1,14 +1,13 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { Login } from '../../src/components';
 
 let mockLoginDetails = {
-  userKey: 'userKey',
-  error: false,
+  error: undefined,
 };
 const mockLogin = jest.fn().mockImplementation(() => {
-  return mockLoginDetails;
+  return Promise.resolve(mockLoginDetails);
 });
 const mockNavigate = jest.fn();
 
@@ -27,13 +26,13 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('Login', () => {
-  test('Login renders with disabled button', () => {
-    const { getByText, getByRole } = render(<Login />);
+  test('Login renders with disabled button', async () => {
+    const { getByText } = render(<Login />);
 
     expect(getByText('Sign in')['disabled']).toBe(true);
   });
 
-  test('Login renders with disabled button, when only username is filled', () => {
+  test('Login renders with disabled button, when only username is filled', async () => {
     const { getByText, getByPlaceholderText } = render(<Login />);
     fireEvent.input(getByPlaceholderText('Username'), {
       target: {
@@ -44,7 +43,7 @@ describe('Login', () => {
     expect(getByText('Sign in')['disabled']).toBe(true);
   });
 
-  test('Login enables button, when only username and password are filled', () => {
+  test('Login enables button, when only username and password are filled', async () => {
     const { getByText, getByPlaceholderText } = render(<Login />);
 
     fireEvent.input(getByPlaceholderText('Username'), {
@@ -61,7 +60,7 @@ describe('Login', () => {
     expect(getByText('Sign in')['disabled']).toBe(false);
   });
 
-  test('Login navigates when login is successful', () => {
+  test('Login navigates when login is successful', async () => {
     const { getByText, getByPlaceholderText } = render(<Login />);
 
     fireEvent.input(getByPlaceholderText('Username'), {
@@ -77,11 +76,11 @@ describe('Login', () => {
     fireEvent.click(getByText('Sign in'));
 
     expect(mockLogin).toHaveBeenCalledTimes(1);
-    expect(mockNavigate).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledTimes(1));
   });
 
-  test('Login shows error message when login fails', () => {
-    mockLoginDetails = { userKey: undefined, error: true };
+  test('Login shows error message when login fails', async () => {
+    mockLoginDetails = { error: true };
 
     const { getByText, getByPlaceholderText } = render(<Login />);
     fireEvent.input(getByPlaceholderText('Username'), {
@@ -96,6 +95,8 @@ describe('Login', () => {
     });
     fireEvent.click(getByText('Sign in'));
 
-    expect(getByText('The username or password provided were incorrect!')).toBeTruthy();
+    await waitFor(() =>
+      expect(getByText('The username or password provided were incorrect!')).toBeTruthy(),
+    );
   });
 });

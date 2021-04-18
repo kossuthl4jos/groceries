@@ -1,15 +1,18 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import React from 'react';
 
 import { Signup } from '../../src/components';
 
-let mockLoginHookDetails = { signUp: jest.fn(), error: false };
+let mockSignupDetails = { error: undefined };
+const mockSignup = jest.fn().mockImplementation(() => {
+  return Promise.resolve(mockSignupDetails);
+});
 const mockNavigate = jest.fn();
 
 jest.mock('../../src/utils/hooks', () => ({
-  useSignUp: jest.fn().mockImplementation(() => {
-    return mockLoginHookDetails;
-  }),
+  useSignUp: jest.fn().mockImplementation(() => ({
+    signUp: mockSignup,
+  })),
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -77,7 +80,7 @@ describe('Signup', () => {
     expect(getByText('Submit')['disabled']).toBe(false);
   });
 
-  test('Signup shows error, when not matching passwords are submitted', () => {
+  test('Signup shows error, when not matching passwords are submitted', async () => {
     const { getByText, getByPlaceholderText } = render(<Signup />);
 
     fireEvent.input(getByPlaceholderText('Username'), {
@@ -97,10 +100,10 @@ describe('Signup', () => {
     });
     fireEvent.click(getByText('Submit'));
 
-    expect(getByText('Something went wrong...')).toBeTruthy();
+    await waitFor(() => expect(getByText('Something went wrong...')).toBeTruthy());
   });
 
-  test('Signup delegates, when successfully signed up', () => {
+  test('Signup delegates, when successfully signed up', async () => {
     const { getByText, getByPlaceholderText } = render(<Signup />);
 
     fireEvent.input(getByPlaceholderText('Username'), {
@@ -120,7 +123,7 @@ describe('Signup', () => {
     });
     fireEvent.click(getByText('Submit'));
 
-    expect(mockLoginHookDetails.signUp).toHaveBeenCalledTimes(1);
-    expect(mockNavigate).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(mockSignup).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledTimes(1));
   });
 });
