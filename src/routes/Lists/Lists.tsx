@@ -37,7 +37,6 @@ export const Lists = () => {
   };
 
   const handleDeleteList = async (listId: string) => {
-    //deleting last list is not OK
     await deleteList(listId);
     await refreshLists();
     if (lists != null && lists.length > 0) {
