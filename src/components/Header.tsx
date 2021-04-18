@@ -18,7 +18,7 @@ export function Header() {
   return (
     <div>
       <Navbar className="justify-content-between" bg="primary" variant="dark">
-        <NavbarBrand>Groceries - {authToken != null ? `Hello ${userName}!` : ''}</NavbarBrand>
+        <NavbarBrand>Groceries {authToken != null ? ` - Hello ${userName}!` : ''}</NavbarBrand>
         {authToken ? (
           <div className="header-auth-button" onClick={logOut}>
             <i className="fas fa-power-off" />
@@ -27,7 +27,7 @@ export function Header() {
         ) : (
           <Link className="header-auth-button" to="/login">
             <i className="fas fa-sign-in-alt" />
-            Sign in
+            Log in
           </Link>
         )}
       </Navbar>

@@ -22,7 +22,7 @@ jest.mock('react-router-dom', () => ({
 
 describe('Login', () => {
   test('Login renders with disabled button', () => {
-    const { getByText } = render(<Login />);
+    const { getByText, getByRole } = render(<Login />);
 
     expect(getByText('Sign in')['disabled']).toBe(true);
   });

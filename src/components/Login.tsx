@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
 import { useLogin } from '../utils';
+import { Header } from './Header';
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const Login = () => {
 
   return (
     <div>
+      <Header />
       <Form className="main-component">
         <FormGroup controlId="formUserName">
           <FormLabel>Username</FormLabel>

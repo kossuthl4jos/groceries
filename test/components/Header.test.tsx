@@ -26,7 +26,7 @@ describe('Header', () => {
   test('Header rendered with sign in, when user is not yet authenticated', () => {
     const { getByText } = render(<Header />);
 
-    expect(getByText('Sign in')).toBeTruthy();
+    expect(getByText('Log in')).toBeTruthy();
     expect(mockClearAuthToken).toHaveBeenCalledTimes(0);
     expect(mockNavigate).toHaveBeenCalledTimes(0);
   });
