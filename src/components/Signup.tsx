@@ -7,21 +7,21 @@ import { Header } from './Header';
 
 export const Signup = () => {
   const navigate = useNavigate();
-  const { signUp, error: signUpError } = useSignUp();
+  const { signUp } = useSignUp();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('');
 
-  function postSignup() {
+  async function postSignup() {
     if (password !== passwordAgain) {
       setIsError(true);
       return;
     }
 
-    signUp({ userName, password });
+    const { error } = await signUp({ userName, password });
 
-    if (signUpError === true) {
+    if (error === true) {
       setIsError(true);
     } else {
       navigate('/lists');

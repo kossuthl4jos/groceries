@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { signupUser } from '../../gateway';
 import { setToken } from '../tokens';
 
 interface SignUpData {
@@ -6,28 +6,16 @@ interface SignUpData {
   password: string;
 }
 
-function createUserKey() {
-  return `groceries-user-key-${String(Math.random()).substring(2, 11)}`;
-}
-
 export const useSignUp = (): {
-  signUp: (values: SignUpData) => void;
-  error: boolean;
+  signUp: (values: SignUpData) => Promise<{ error: any }>;
 } => {
-  const [error, setError] = useState(false);
-
-  const signUp = ({ userName, password }: SignUpData) => {
-    const userKey = createUserKey();
-
-    try {
-      const data = JSON.stringify({ userName, password });
-      localStorage.setItem(userKey, data);
-
-      setToken({ userKey, userName });
-    } catch {
-      setError(true);
+  const signUp = async ({ userName, password }: SignUpData) => {
+    const { _id, error } = await signupUser({ userName, password });
+    if (_id != null) {
+      setToken({ userKey: _id, userName });
     }
+    return { error };
   };
 
-  return { signUp, error };
+  return { signUp };
 };

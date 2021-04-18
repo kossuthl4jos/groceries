@@ -41,4 +41,14 @@ export class LocalGateWay {
     const newLists: Array<List> = [...(lists.filter((l: List) => l._id !== list._id) ?? []), list];
     saveLists(newLists);
   };
+
+  signupUser = async (user: { userName: string; password: string }) => {
+    const { userName, password } = user;
+    const userKey = `groceries-user-key-${String(Math.random()).substring(2, 11)}`;
+
+    const data = JSON.stringify({ userName, password });
+    localStorage.setItem(userKey, data);
+
+    return userKey;
+  };
 }

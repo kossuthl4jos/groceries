@@ -61,4 +61,21 @@ export class RemoteGateWay {
       console.error('could not update list');
     }
   };
+
+  signupUser = async (user: { userName: string; password: string }) => {
+    const res = await fetch(BACKED_HOST + `/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (res.status === 500 || !res.ok) {
+      console.error('Could not sign up user');
+    }
+    const json = await res.json();
+
+    return json;
+  };
 }

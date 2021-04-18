@@ -20,3 +20,7 @@ export async function deleteList(listId: string): Promise<void> {
 export async function updateList(list: List): Promise<void> {
   await backendService.updateList(list);
 }
+
+export async function signupUser(user: { userName: string; password: string }): Promise<any> {
+  return await backendService.signupUser(user);
+}
