@@ -28,8 +28,12 @@ export const Lists = () => {
   const items = lists.length > 0 ? lists?.find((item) => item._id === selectedListId)?.items : [];
 
   const handleAddList = async (list: List) => {
-    await addList(list);
+    const { _id } = await addList(list);
     await refreshLists();
+
+    if (_id != null) {
+      setSelectedListId(_id);
+    }
   };
 
   const handleDeleteList = async (listId: string) => {

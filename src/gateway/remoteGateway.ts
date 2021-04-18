@@ -30,6 +30,9 @@ export class RemoteGateWay {
 
     if (res.status === 500 || !res.ok) {
       console.error('could not save new list');
+    } else {
+      const json = await res.json();
+      return json;
     }
   };
 

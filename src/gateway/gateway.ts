@@ -9,8 +9,8 @@ export async function getLists(): Promise<Array<List>> {
   return await backendService.getLists();
 }
 
-export async function addList(list: List): Promise<void> {
-  await backendService.addList(list);
+export async function addList(list: List): Promise<List> {
+  return await backendService.addList(list);
 }
 
 export async function deleteList(listId: string): Promise<void> {
