@@ -3,19 +3,13 @@ import React from 'react';
 
 import { Signup } from '../../src/components';
 
-const mockSignupDetails = { userKey: 'useKey', userName: 'userName' };
-const mockSignUp = jest.fn().mockImplementation(() => mockSignupDetails);
-const mockSetToken = jest.fn();
+let mockLoginHookDetails = { signUp: jest.fn(), error: false };
 const mockNavigate = jest.fn();
 
-jest.mock('../../src/utils/tokens', () => ({
-  setToken: jest.fn().mockImplementation(() => mockSetToken()),
-  getToken: jest.fn(),
-  clearToken: jest.fn(),
-}));
-
-jest.mock('../../src/gateway/fake-gateway', () => ({
-  signUp: jest.fn().mockImplementation(() => mockSignUp()),
+jest.mock('../../src/utils/hooks', () => ({
+  useSignUp: jest.fn().mockImplementation(() => {
+    return mockLoginHookDetails;
+  }),
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -126,8 +120,7 @@ describe('Signup', () => {
     });
     fireEvent.click(getByText('Submit'));
 
-    expect(mockSignUp).toHaveBeenCalledTimes(1);
-    expect(mockSetToken).toHaveBeenCalledTimes(1);
+    expect(mockLoginHookDetails.signUp).toHaveBeenCalledTimes(1);
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 });

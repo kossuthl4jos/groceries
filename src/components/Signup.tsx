@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { signUp } from '../gateway/fake-gateway';
 
 import { Button, Form, Alert, FormGroup, FormLabel, FormControl, FormText } from 'react-bootstrap';
-import { setToken } from '../utils';
+import { useSignUp } from '../utils';
 
 export const Signup = () => {
   const navigate = useNavigate();
+  const { signUp, error: signUpError } = useSignUp();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -18,11 +18,13 @@ export const Signup = () => {
       return;
     }
 
-    const { userKey: authKey, userName: authUserName } = signUp({ userName, password });
-    setToken({ userKey: authKey, userName: authUserName });
+    signUp({ userName, password });
 
-    navigate('/lists');
-    // TODO error handling
+    if (signUpError === true) {
+      setIsError(true);
+    } else {
+      navigate('/lists');
+    }
   }
 
   return (
