@@ -7,17 +7,18 @@ import { Header } from './Header';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { login, error: loginError } = useLogin();
+  const { login } = useLogin();
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const postLogin = () => {
-    login({ userName, password });
-    if (loginError) {
-      setIsError(true);
-    } else {
+    const { error } = login({ userName, password });
+
+    if (error === false) {
       navigate('/lists', { replace: true });
+    } else {
+      setIsError(true);
     }
   };
 

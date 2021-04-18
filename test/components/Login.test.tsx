@@ -3,13 +3,19 @@ import React from 'react';
 
 import { Login } from '../../src/components';
 
-let mockLoginHookDetails = { login: jest.fn(), error: false };
+let mockLoginDetails = {
+  userKey: 'userKey',
+  error: false,
+};
+const mockLogin = jest.fn().mockImplementation(() => {
+  return mockLoginDetails;
+});
 const mockNavigate = jest.fn();
 
 jest.mock('../../src/utils/hooks', () => ({
-  useLogin: jest.fn().mockImplementation(() => {
-    return mockLoginHookDetails;
-  }),
+  useLogin: jest.fn().mockImplementation(() => ({
+    login: mockLogin,
+  })),
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -70,12 +76,12 @@ describe('Login', () => {
     });
     fireEvent.click(getByText('Sign in'));
 
-    expect(mockLoginHookDetails.login).toHaveBeenCalledTimes(1);
+    expect(mockLogin).toHaveBeenCalledTimes(1);
     expect(mockNavigate).toHaveBeenCalledTimes(1);
   });
 
   test('Login shows error message when login fails', () => {
-    mockLoginHookDetails = { login: mockLoginHookDetails.login, error: true };
+    mockLoginDetails = { userKey: undefined, error: true };
 
     const { getByText, getByPlaceholderText } = render(<Login />);
     fireEvent.input(getByPlaceholderText('Username'), {
