@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { Collapse } from 'react-bootstrap';
-import { CompleteItemModal, CompletedItems } from '..';
+import { CompleteItemModal } from '..';
 import { Item, List } from '~/types';
+import { GroceryItem } from './GroceryItem';
 
 export const Items = ({
   items,
@@ -20,6 +21,8 @@ export const Items = ({
     setCompletingItem(false);
     setSelectedItemId('');
   };
+
+  const completedItems = items.filter((item: Item) => item.completed === true);
 
   const handleOnClickSave = (completedBy: string, price: string) => {
     const completedItem = {
@@ -86,14 +89,11 @@ export const Items = ({
         : items.map(
             (item: Item) =>
               !item.completed && (
-                <div key={item.itemId}>
-                  <div className="item">
-                    {item.name}
-                    <div onClick={() => startCompletingItem(item.itemId)} className="check-box">
-                      <i className="fas fa-check fa-xs"></i>
-                    </div>
-                  </div>
-                </div>
+                <GroceryItem
+                  item={item}
+                  key={item.itemId}
+                  startCompletingItem={startCompletingItem}
+                />
               ),
           )}
       {hasSomeCompleted && (
@@ -109,9 +109,9 @@ export const Items = ({
           </div>
           <Collapse in={showCompletedItems}>
             <div>
-              <CompletedItems
-                completedItems={items.filter((item: Item) => item.completed === true)}
-              />
+              {completedItems.length !== 0
+                ? completedItems.map((item: Item) => <GroceryItem key={item.itemId} item={item} />)
+                : null}
             </div>
           </Collapse>
         </Fragment>

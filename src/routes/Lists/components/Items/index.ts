@@ -1,3 +1,3 @@
 export * from './Items';
-export * from './CompletedItems';
+export * from './GroceryItem';
 export * from './CompleteItemModal';
