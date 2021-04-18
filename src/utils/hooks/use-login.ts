@@ -1,4 +1,5 @@
-import { getToken, setToken } from '../tokens';
+import { loginUser } from '../../gateway';
+import { setToken } from '../tokens';
 
 interface LoginData {
   userName: string;
@@ -6,23 +7,15 @@ interface LoginData {
 }
 
 export const useLogin = (): {
-  login: (values: LoginData) => { userKey?: string; error: boolean };
+  login: (values: LoginData) => Promise<{ error: any }>;
 } => {
-  const login = (values: LoginData) => {
-    for (var key in localStorage) {
-      if (key.startsWith('groceries-user-key')) {
-        const credentials = JSON.parse(localStorage.getItem(key)!);
-        if (credentials.userName === values.userName && credentials.password === values.password) {
-          setToken({ userKey: credentials.userKey, userName: credentials.userName });
-        }
-      }
-    }
+  const login = async ({ userName, password }: LoginData) => {
+    const { _id, error } = await loginUser({ userName, password });
 
-    if (getToken()?.userKey == null) {
-      return { userKey: undefined, error: true };
-    } else {
-      return { userKey: getToken()!.userKey, error: false };
+    if (_id != null) {
+      setToken({ userKey: _id, userName });
     }
+    return { error };
   };
 
   return { login };

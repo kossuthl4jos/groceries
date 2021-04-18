@@ -42,6 +42,19 @@ export class LocalGateWay {
     saveLists(newLists);
   };
 
+  loginUser = async (user: { userName: string; password: string }) => {
+    for (var key in localStorage) {
+      if (key.startsWith('groceries-user-key')) {
+        const credentials = JSON.parse(localStorage.getItem(key)!);
+        if (credentials.userName === user.userName && credentials.password === user.password) {
+          return key;
+        }
+      }
+    }
+
+    return undefined;
+  };
+
   signupUser = async (user: { userName: string; password: string }) => {
     const { userName, password } = user;
     const userKey = `groceries-user-key-${String(Math.random()).substring(2, 11)}`;

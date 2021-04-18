@@ -62,6 +62,23 @@ export class RemoteGateWay {
     }
   };
 
+  loginUser = async (user: { userName: string; password: string }) => {
+    const res = await fetch(BACKED_HOST + `/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (res.status === 500 || !res.ok) {
+      console.error('Could not sign up user');
+    }
+    const json = await res.json();
+
+    return json;
+  };
+
   signupUser = async (user: { userName: string; password: string }) => {
     const res = await fetch(BACKED_HOST + `/signup`, {
       method: 'POST',

@@ -12,10 +12,10 @@ export const Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const postLogin = () => {
-    const { error } = login({ userName, password });
+  const postLogin = async () => {
+    const { error } = await login({ userName, password });
 
-    if (error === false) {
+    if (error == null) {
       navigate('/lists', { replace: true });
     } else {
       setIsError(true);
