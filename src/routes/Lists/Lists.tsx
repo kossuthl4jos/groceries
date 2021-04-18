@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { List } from '../../types';
 import { getLists, addList, deleteList, updateList } from '../../gateway';
 import { ListManager, Items } from './components';
@@ -49,7 +49,7 @@ export const Lists = () => {
   };
 
   return (
-    <Fragment>
+    <div style={{ maxHeight: 'calc(100vh - 112px)', overflowY: 'auto' }}>
       <ListManager
         lists={lists}
         addList={handleAddList}
@@ -65,6 +65,6 @@ export const Lists = () => {
           items={items}
         />
       ) : null}
-    </Fragment>
+    </div>
   );
 };

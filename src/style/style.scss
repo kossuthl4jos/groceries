@@ -145,3 +145,11 @@
     }
   }
 }
+
+@media (min-width: 35.1em) {
+  /* Larger than mobile devices */
+  .main-component {
+    margin-left: 33%;
+    margin-right: 33%;
+  }
+}

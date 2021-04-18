@@ -16,7 +16,7 @@ export function Header() {
   }
 
   return (
-    <div>
+    <div className="header">
       <Navbar className="justify-content-between" bg="primary" variant="dark">
         <NavbarBrand>Groceries {authToken != null ? ` - Hello ${userName}!` : ''}</NavbarBrand>
         {authToken ? (
