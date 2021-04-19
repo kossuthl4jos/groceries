@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { List } from '../../types';
-import { getLists, updateList } from '../../gateway';
+import { getLists } from '../../gateway';
 import { ListManager, Items } from './components';
 
 export const Lists = () => {
@@ -27,11 +27,6 @@ export const Lists = () => {
 
   const items = lists.length > 0 ? lists?.find((item) => item._id === selectedListId)?.items : [];
 
-  const handleUpdateList = async (list: List) => {
-    await updateList(list);
-    await refreshLists();
-  };
-
   return (
     <div style={{ maxHeight: 'calc(100vh - 112px)', overflowY: 'auto' }}>
       <ListManager
@@ -43,7 +38,7 @@ export const Lists = () => {
       {items != null && items.length > 0 ? (
         <Items
           selectedList={lists.find((list) => list._id === selectedListId)}
-          updateList={handleUpdateList}
+          refreshLists={refreshLists}
           items={items}
         />
       ) : null}

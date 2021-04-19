@@ -1,30 +1,29 @@
 import React, { Fragment, useState } from 'react';
 import { Collapse } from 'react-bootstrap';
-import { CompleteItemModal } from '..';
+import { updateList } from '../../../../gateway';
 import { Item, List } from '~/types';
-import { GroceryItem } from './GroceryItem';
+import { GroceryItem, CompleteItemModal } from './';
 
 export const Items = ({
   items,
-  updateList,
   selectedList,
+  refreshLists,
 }: {
   items: Array<Item>;
   selectedList?: List;
-  updateList: (list: List) => void;
+  refreshLists: () => Promise<void>;
 }) => {
   const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
 
+  const completedItems = items.filter((item: Item) => item.completed === true);
   const stopCompletingItem = () => {
     setCompletingItem(false);
     setSelectedItemId('');
   };
 
-  const completedItems = items.filter((item: Item) => item.completed === true);
-
-  const handleOnClickSave = (completedBy: string, price: string) => {
+  const handleOnClickSave = async (completedBy: string, price: string) => {
     const completedItem = {
       itemId: selectedItemId,
       name: getSelectedItem().name,
@@ -34,7 +33,7 @@ export const Items = ({
     };
 
     if (selectedList != null) {
-      updateList({
+      await updateList({
         _id: selectedList._id,
         name: selectedList.name,
         items: [
@@ -42,6 +41,7 @@ export const Items = ({
           completedItem,
         ],
       });
+      await refreshLists();
       stopCompletingItem();
     }
   };
