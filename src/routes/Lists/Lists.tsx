@@ -6,6 +6,7 @@ import { ListManager, Items } from './components';
 export const Lists = () => {
   const [lists, setLists] = useState<Array<List>>([]);
   const [selectedListId, setSelectedListId] = useState<string>();
+  const selectedList = lists.find((list) => list._id === selectedListId);
 
   const refreshLists = async () => {
     const newLists = await getLists();
@@ -25,8 +26,6 @@ export const Lists = () => {
     refreshLists();
   }, []);
 
-  const items = lists.length > 0 ? lists?.find((item) => item._id === selectedListId)?.items : [];
-
   return (
     <div style={{ maxHeight: 'calc(100vh - 112px)', overflowY: 'auto' }}>
       <ListManager
@@ -35,12 +34,8 @@ export const Lists = () => {
         selectedListId={selectedListId}
         updateSelectedListId={setSelectedListId}
       />
-      {items != null && items.length > 0 ? (
-        <Items
-          selectedList={lists.find((list) => list._id === selectedListId)}
-          refreshLists={refreshLists}
-          items={items}
-        />
+      {selectedList != null ? (
+        <Items selectedList={selectedList} refreshLists={refreshLists} />
       ) : null}
     </div>
   );

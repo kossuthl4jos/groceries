@@ -5,18 +5,17 @@ import { Item, List } from '~/types';
 import { GroceryItem, CompleteItemModal } from './';
 
 export const Items = ({
-  items,
   selectedList,
   refreshLists,
 }: {
-  items: Array<Item>;
-  selectedList?: List;
+  selectedList: List;
   refreshLists: () => Promise<void>;
 }) => {
   const [showCompletedItems, setShowCompletedItems] = useState(true);
   const [completingItem, setCompletingItem] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
 
+  const items = selectedList.items;
   const completedItems = items.filter((item: Item) => item.completed === true);
   const stopCompletingItem = () => {
     setCompletingItem(false);
