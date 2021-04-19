@@ -12,17 +12,18 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { AddListModal, DeleteListModal } from './';
 import { List } from '~/types';
+import { addList } from '../../../../gateway';
 
 export const ListManager = ({
-  addList,
+  lists,
+  refreshLists,
   deleteList,
   updateList,
   selectedListId,
   updateSelectedListId,
-  lists,
 }: {
   lists?: Array<List>;
-  addList: (list: List) => void;
+  refreshLists: () => Promise<void>;
   deleteList: (listId: string) => void;
   updateList: (list: List) => void;
   selectedListId?: string;
@@ -43,13 +44,19 @@ export const ListManager = ({
     setNewItemName('');
   };
 
-  const handleOnClickSave = (newListName: string) => {
+  const handleOnClickSave = async (newListName: string) => {
     const newList = {
       _id: uuidv4(),
       name: newListName,
       items: [],
     };
-    addList(newList);
+
+    const { _id } = await addList(newList);
+    await refreshLists();
+
+    if (_id != null) {
+      updateSelectedListId(_id);
+    }
     setAddListModalVisible(false);
   };
 

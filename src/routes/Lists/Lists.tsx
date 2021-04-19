@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { List } from '../../types';
-import { getLists, addList, deleteList, updateList } from '../../gateway';
+import { getLists, deleteList, updateList } from '../../gateway';
 import { ListManager, Items } from './components';
 
 export const Lists = () => {
@@ -27,15 +27,6 @@ export const Lists = () => {
 
   const items = lists.length > 0 ? lists?.find((item) => item._id === selectedListId)?.items : [];
 
-  const handleAddList = async (list: List) => {
-    const { _id } = await addList(list);
-    await refreshLists();
-
-    if (_id != null) {
-      setSelectedListId(_id);
-    }
-  };
-
   const handleDeleteList = async (listId: string) => {
     await deleteList(listId);
     await refreshLists();
@@ -55,7 +46,7 @@ export const Lists = () => {
     <div style={{ maxHeight: 'calc(100vh - 112px)', overflowY: 'auto' }}>
       <ListManager
         lists={lists}
-        addList={handleAddList}
+        refreshLists={refreshLists}
         deleteList={handleDeleteList}
         updateList={handleUpdateList}
         selectedListId={selectedListId}
