@@ -12,22 +12,20 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { AddListModal, DeleteListModal } from './';
 import { List } from '~/types';
-import { addList } from '../../../../gateway';
+import { addList, deleteList } from '../../../../gateway';
 
 export const ListManager = ({
   lists,
   refreshLists,
-  deleteList,
   updateList,
   selectedListId,
   updateSelectedListId,
 }: {
   lists?: Array<List>;
   refreshLists: () => Promise<void>;
-  deleteList: (listId: string) => void;
   updateList: (list: List) => void;
   selectedListId?: string;
-  updateSelectedListId: (selectedListId: string) => void;
+  updateSelectedListId: (selectedListId?: string) => void;
 }) => {
   const [addListModalVisible, setAddListModalVisible] = useState(false);
   const [deleteListModalVisible, setDeleteListModalVisible] = useState(false);
@@ -44,7 +42,7 @@ export const ListManager = ({
     setNewItemName('');
   };
 
-  const handleOnClickSave = async (newListName: string) => {
+  const handleOnClickSaveNewList = async (newListName: string) => {
     const newList = {
       _id: uuidv4(),
       name: newListName,
@@ -58,6 +56,17 @@ export const ListManager = ({
       updateSelectedListId(_id);
     }
     setAddListModalVisible(false);
+  };
+
+  const handleOnClickDeleteList = async (listId: string) => {
+    await deleteList(listId);
+    await refreshLists();
+    if (lists != null && lists.length > 0) {
+      updateSelectedListId(lists[0]._id);
+    } else {
+      updateSelectedListId(undefined);
+    }
+    setDeleteListModalVisible(false);
   };
 
   const handleOnClickAdd = () => {
@@ -152,17 +161,14 @@ export const ListManager = ({
       <AddListModal
         show={addListModalVisible}
         stopAddingList={() => setAddListModalVisible(false)}
-        handleOnClickSave={handleOnClickSave}
+        handleOnClickSave={handleOnClickSaveNewList}
       />
 
       <DeleteListModal
         list={lists?.find((list) => list._id === selectedListId)}
         show={deleteListModalVisible}
         stopDeletingList={() => setDeleteListModalVisible(false)}
-        handleOnClickDelete={(listId: string) => {
-          deleteList(listId);
-          setDeleteListModalVisible(false);
-        }}
+        handleOnClickDelete={handleOnClickDeleteList}
       />
     </div>
   );
