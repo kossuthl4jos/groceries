@@ -37,7 +37,6 @@ export const Lists = () => {
       <ListManager
         lists={lists}
         refreshLists={refreshLists}
-        updateList={handleUpdateList}
         selectedListId={selectedListId}
         updateSelectedListId={setSelectedListId}
       />

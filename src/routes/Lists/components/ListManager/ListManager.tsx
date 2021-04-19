@@ -12,18 +12,16 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { AddListModal, DeleteListModal } from './';
 import { List } from '~/types';
-import { addList, deleteList } from '../../../../gateway';
+import { addList, deleteList, updateList } from '../../../../gateway';
 
 export const ListManager = ({
   lists,
   refreshLists,
-  updateList,
   selectedListId,
   updateSelectedListId,
 }: {
   lists?: Array<List>;
   refreshLists: () => Promise<void>;
-  updateList: (list: List) => void;
   selectedListId?: string;
   updateSelectedListId: (selectedListId?: string) => void;
 }) => {
@@ -69,7 +67,7 @@ export const ListManager = ({
     setDeleteListModalVisible(false);
   };
 
-  const handleOnClickAdd = () => {
+  const handleOnClickAdd = async () => {
     const newItem = {
       itemId: uuidv4(),
       name: newItemName,
@@ -77,11 +75,12 @@ export const ListManager = ({
     };
 
     if (selectedList != null) {
-      updateList({
+      await updateList({
         _id: selectedList._id,
         name: selectedList.name,
         items: [...selectedList.items, newItem],
       });
+      await refreshLists();
       stopAddingItem();
       clearStateForItem();
     }
